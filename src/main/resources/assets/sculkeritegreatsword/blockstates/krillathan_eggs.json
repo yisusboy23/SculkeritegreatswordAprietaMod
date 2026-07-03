@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "sculkeritegreatsword:block/krillathan_eggs"
+      },
+      {
+        "model": "sculkeritegreatsword:block/krillathan_eggs",
+        "y": 90
+      },
+      {
+        "model": "sculkeritegreatsword:block/krillathan_eggs",
+        "y": 180
+      },
+      {
+        "model": "sculkeritegreatsword:block/krillathan_eggs",
+        "y": 270
+      }
+    ]
+  }
+}

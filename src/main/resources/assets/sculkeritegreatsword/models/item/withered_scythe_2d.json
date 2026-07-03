@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "sculkeritegreatsword:item/withered_scythe_2d2"
+  }
+}

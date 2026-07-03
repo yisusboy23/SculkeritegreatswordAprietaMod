@@ -1,0 +1,60 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "cuerpocompleto",
+					"pivot": [0, 1, 0]
+				},
+				{
+					"name": "cuerpo",
+					"parent": "cuerpocompleto",
+					"pivot": [-0.03125, 9.46875, 0.75],
+					"cubes": [
+						{"origin": [-2.5, 2.5, -2.5], "size": [5, 1.5, 5], "uv": [40, 0]},
+						{"origin": [-3, 14, -3], "size": [5.75, 1.25, 5.75], "uv": [40, 0]},
+						{"origin": [-5, 4, -5], "size": [10, 10, 10], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "nariz",
+					"parent": "cuerpo",
+					"pivot": [0, 11, -12.875],
+					"cubes": [
+						{"origin": [-2, 7, -7], "size": [4, 4, 1.75], "uv": [40, 12]}
+					]
+				},
+				{
+					"name": "brazos",
+					"parent": "cuerpocompleto",
+					"pivot": [-0.125, 11.75, 0]
+				},
+				{
+					"name": "brazoderecho",
+					"parent": "brazos",
+					"pivot": [7, 11, 0],
+					"cubes": [
+						{"origin": [3.5, -1, -3.5], "size": [5.5, 14, 7], "inflate": -1, "pivot": [6.5, 11, 0], "rotation": [0, 180, 0], "uv": [0, 20]}
+					]
+				},
+				{
+					"name": "brazoizquierda",
+					"parent": "brazos",
+					"pivot": [-7.25, 10.5, 0],
+					"cubes": [
+						{"origin": [-9.5, -1, -3.5], "size": [5.5, 14, 7], "inflate": -1, "uv": [0, 20]}
+					]
+				}
+			]
+		}
+	]
+}

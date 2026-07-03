@@ -1,0 +1,135 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.hydrantor",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "cuerpo completo",
+					"pivot": [1, 8, 1]
+				},
+				{
+					"name": "piernas",
+					"parent": "cuerpo completo",
+					"pivot": [0, 10, -1]
+				},
+				{
+					"name": "piernaderecha",
+					"parent": "piernas",
+					"pivot": [5.5, 9.5, -2.5],
+					"cubes": [
+						{"origin": [2, 0, -6], "size": [7, 9, 7], "uv": [68, 0]}
+					]
+				},
+				{
+					"name": "piernaizquierda",
+					"parent": "piernas",
+					"pivot": [-5.5, 9.5, -2.5],
+					"cubes": [
+						{"origin": [-9, 0, -6], "size": [7, 9, 7], "uv": [68, 0]}
+					]
+				},
+				{
+					"name": "cuerpo",
+					"parent": "cuerpo completo",
+					"pivot": [0, 9, -1.25],
+					"cubes": [
+						{"origin": [-9, 9, -10], "size": [18, 18, 15], "uv": [0, 37]},
+						{"origin": [-9.5, 5.25, -10.25], "size": [19, 22, 15.5], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "brazos",
+					"parent": "cuerpo",
+					"pivot": [-0.03125, 26, -2.625]
+				},
+				{
+					"name": "brazoderecho",
+					"parent": "brazos",
+					"pivot": [10.375, 26, -2.625],
+					"cubes": [
+						{"origin": [10, 5, -5], "size": [5, 22, 5], "uv": [66, 64]},
+						{"origin": [8.75, 4, -6], "size": [7, 6, 7], "uv": [28, 70]},
+						{"origin": [9.25, 10, -5.5], "size": [6, 7, 6], "uv": [86, 47]},
+						{"origin": [9.5, 19, -5.5], "size": [6, 9, 6], "pivot": [12.5, 23.5, -2.5], "rotation": [0, 180, 0], "uv": [32, 83]}
+					]
+				},
+				{
+					"name": "tornilloderecho",
+					"parent": "brazoderecho",
+					"pivot": [12.49975, 28, -2.50025],
+					"cubes": [
+						{"origin": [10.999, 26, -6.5], "size": [3.001, 10, 8], "inflate": -1.5, "uv": [-3, 83]},
+						{"origin": [12.499, 26, -4], "size": [3.001, 10, 8], "inflate": -1.5, "pivot": [14.5, 26, -2], "rotation": [0, -90, 0], "uv": [8, 83]}
+					]
+				},
+				{
+					"name": "brazoizquierdo",
+					"parent": "brazos",
+					"pivot": [-9.50005, 27.6, -2.50005],
+					"rotation": [0, 180, 0],
+					"cubes": [
+						{"origin": [-9, 5, -5], "size": [5, 22, 5], "uv": [66, 64]},
+						{"origin": [-10, 4, -6], "size": [7, 6, 7], "uv": [28, 70]},
+						{"origin": [-9.5, 10, -5.5], "size": [6, 7, 6], "uv": [86, 47]},
+						{"origin": [-9.5, 19, -5.5], "size": [6, 9, 6], "uv": [86, 32]}
+					]
+				},
+				{
+					"name": "tornilloizquierdo",
+					"parent": "brazoizquierdo",
+					"pivot": [-6.75025, 28, -2.50025],
+					"cubes": [
+						{"origin": [-8.251, 26, -6.5], "size": [3.001, 10, 8], "inflate": -1.5, "uv": [-3, 83]},
+						{"origin": [-6.751, 26, -4], "size": [3.001, 10, 8], "inflate": -1.5, "pivot": [-4.75, 26, -2], "rotation": [0, -90, 0], "uv": [8, 83]}
+					]
+				},
+				{
+					"name": "cara",
+					"parent": "cuerpo",
+					"pivot": [0, 26.25, -9.25],
+					"cubes": [
+						{"origin": [-6, 27.75, -13.25], "size": [12, 4, 4], "uv": [0, 83]},
+						{"origin": [-4, 20.75, -13.25], "size": [8, 7, 4], "uv": [86, 73]}
+					]
+				},
+				{
+					"name": "viento",
+					"parent": "cuerpo completo",
+					"pivot": [1, 8, 1]
+				},
+				{
+					"name": "bone",
+					"parent": "viento",
+					"pivot": [1, 8, 1],
+					"cubes": [
+						{"origin": [-13, 5, -16], "size": [26, 2, 26], "inflate": 3, "uv": [24, 100]}
+					]
+				},
+				{
+					"name": "bone2",
+					"parent": "bone",
+					"pivot": [1, 8, -1],
+					"cubes": [
+						{"origin": [-14, 37, -16], "size": [26, 2, 26], "uv": [0, 100]}
+					]
+				},
+				{
+					"name": "bone3",
+					"parent": "bone2",
+					"pivot": [1, 8, -1],
+					"cubes": [
+						{"origin": [-14, 21, -16], "size": [26, 2, 26], "uv": [0, 100]}
+					]
+				}
+			]
+		}
+	]
+}

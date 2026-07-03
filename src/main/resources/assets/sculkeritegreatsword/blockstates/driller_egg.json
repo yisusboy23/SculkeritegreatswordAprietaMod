@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "hatch=0": [
+      {
+        "model": "sculkeritegreatsword:block/driller_egg"
+      }
+    ],
+    "hatch=1": [
+      {
+        "model": "sculkeritegreatsword:block/driller_egg_cracked"
+      }
+    ],
+    "hatch=2": [
+      {
+        "model": "sculkeritegreatsword:block/driller_egg_very_cracked"
+      }
+    ]
+  }
+}

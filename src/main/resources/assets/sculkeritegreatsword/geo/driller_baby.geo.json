@@ -1,0 +1,82 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "CuerpoCompleto",
+					"pivot": [0, 0.25, 4],
+					"rotation": [0, 90, 0]
+				},
+				{
+					"name": "Cara",
+					"parent": "CuerpoCompleto",
+					"pivot": [6, 10.5, 3.5625],
+					"cubes": [
+						{"origin": [0, 8.25, 0], "size": [7, 6, 7], "uv": [0, 17]},
+						{"origin": [7, 8.25, 2.25], "size": [3, 3, 2.75], "uv": [14, 30]}
+					]
+				},
+				{
+					"name": "Cuerpo",
+					"parent": "CuerpoCompleto",
+					"pivot": [0, 0.25, 4],
+					"cubes": [
+						{"origin": [-1, 0.25, -1], "size": [8, 8, 9], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Piernas",
+					"parent": "Cuerpo",
+					"pivot": [0, 1, 3.5]
+				},
+				{
+					"name": "PiernaD",
+					"parent": "Piernas",
+					"pivot": [4, 0.0005, 6.5],
+					"cubes": [
+						{"origin": [3, 0, 4], "size": [5, 0.001, 5], "uv": [28, 17]}
+					]
+				},
+				{
+					"name": "PiernaI",
+					"parent": "Piernas",
+					"pivot": [4, 0.0005, 0.5],
+					"cubes": [
+						{"origin": [3, 0, -2], "size": [5, 0.001, 5], "uv": [28, 22]}
+					]
+				},
+				{
+					"name": "Brazos",
+					"parent": "Cuerpo",
+					"pivot": [2.5, 6.75, 3.5]
+				},
+				{
+					"name": "BrazoD",
+					"parent": "Brazos",
+					"pivot": [2.5, 6.75, 8],
+					"rotation": [0, 180, 0],
+					"cubes": [
+						{"origin": [0, 0.25, 6], "size": [5, 7, 2], "uv": [28, 27]}
+					]
+				},
+				{
+					"name": "BrazoI",
+					"parent": "Brazos",
+					"pivot": [2.5, 6.75, -1],
+					"cubes": [
+						{"origin": [0, 0.25, -3], "size": [5, 7, 2], "uv": [28, 27]}
+					]
+				}
+			]
+		}
+	]
+}

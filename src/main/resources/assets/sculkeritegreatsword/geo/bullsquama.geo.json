@@ -1,0 +1,112 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 256,
+				"texture_height": 256,
+				"visible_bounds_width": 8,
+				"visible_bounds_height": 5.5,
+				"visible_bounds_offset": [0, 2.25, 0]
+			},
+			"bones": [
+				{
+					"name": "CuerpoCompleto",
+					"pivot": [0, 6, 18],
+					"rotation": [0, 180, 0]
+				},
+				{
+					"name": "cabeza",
+					"parent": "CuerpoCompleto",
+					"pivot": [-1, 28, 32],
+					"cubes": [
+						{"origin": [-22, 36, 39], "size": [42, 25, 4], "uv": [164, 0]}
+					]
+				},
+				{
+					"name": "Boca",
+					"parent": "cabeza",
+					"pivot": [-1, 32, 43],
+					"cubes": [
+						{"origin": [-17, 10, 43], "size": [32, 22, 20], "uv": [0, 60]}
+					]
+				},
+				{
+					"name": "Cara",
+					"parent": "cabeza",
+					"pivot": [-1, 32, 43],
+					"cubes": [
+						{"origin": [-15, 32, 43], "size": [28, 7, 18], "uv": [0, 101]}
+					]
+				},
+				{
+					"name": "Lengua",
+					"parent": "cabeza",
+					"pivot": [-4, 29.0005, -2.5],
+					"cubes": [
+						{"origin": [-8, 29, -3], "size": [8, 0.001, 57], "uv": [107, 81]}
+					]
+				},
+				{
+					"name": "Cuerpo",
+					"parent": "CuerpoCompleto",
+					"pivot": [-0.33333, 12.33333, 20]
+				},
+				{
+					"name": "Torso",
+					"parent": "Cuerpo",
+					"pivot": [5, 8, 18],
+					"cubes": [
+						{"origin": [-17, 14, 5], "size": [32, 22, 38], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Piernas",
+					"parent": "Cuerpo",
+					"pivot": [0, 6, 18]
+				},
+				{
+					"name": "PDerecha",
+					"parent": "Piernas",
+					"pivot": [-17, 18.5, 39],
+					"cubes": [
+						{"origin": [-19, 1, 34], "size": [10, 17, 10], "uv": [0, 127]}
+					]
+				},
+				{
+					"name": "PIzquierda",
+					"parent": "Piernas",
+					"pivot": [15, 17.5, 39],
+					"cubes": [
+						{"origin": [8, 1, 34], "size": [10, 17, 10], "uv": [0, 127]}
+					]
+				},
+				{
+					"name": "PTDerecha",
+					"parent": "Piernas",
+					"pivot": [-17, 17.5, 13],
+					"cubes": [
+						{"origin": [-19, 1, 8], "size": [10, 17, 10], "uv": [0, 127]}
+					]
+				},
+				{
+					"name": "PTIzquierda",
+					"parent": "Piernas",
+					"pivot": [15, 17.5, 13],
+					"cubes": [
+						{"origin": [8, 1, 8], "size": [10, 17, 10], "uv": [0, 127]}
+					]
+				},
+				{
+					"name": "Cola",
+					"parent": "Cuerpo",
+					"pivot": [-1, 23, 4],
+					"cubes": [
+						{"origin": [-10, 14, -13], "size": [18, 18, 18], "uv": [92, 102]}
+					]
+				}
+			]
+		}
+	]
+}

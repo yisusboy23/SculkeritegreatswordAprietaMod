@@ -1,0 +1,48 @@
+package net.tucas.sculkeritegreatsword.client;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.tucas.sculkeritegreatsword.Sculkeritegreatsword;
+import net.tucas.sculkeritegreatsword.client.renderer.SculkGolemRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.OxicopperGolemRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.MushroomGolemRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.SculkboomparticleRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.MushroomServantRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.LapisGolemRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.GrindstoneGolemRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.DiamondGolemRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.ChorusGolemRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.HydrantorGolemRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.DiamondFrostProjectileRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.KrillathanRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.BullsquamaRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.MudderRenderer;
+import net.tucas.sculkeritegreatsword.init.ModEntities;
+import net.tucas.sculkeritegreatsword.client.renderer.DrillerRenderer;
+
+@Mod.EventBusSubscriber(modid = Sculkeritegreatsword.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+public class ClientModEvents {
+
+    @SubscribeEvent
+    public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntities.SCULK_GOLEM.get(), SculkGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.OXICOPPER_GOLEM.get(), OxicopperGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.MUSHROOM_GOLEM.get(), MushroomGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.SCULKBOOMPARTICLE.get(), SculkboomparticleRenderer::new);
+        event.registerEntityRenderer(ModEntities.MUSHROOM_SERVANT.get(), MushroomServantRenderer::new);
+        event.registerEntityRenderer(ModEntities.LAPIS_GOLEM.get(), LapisGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.GRINDSTONE_GOLEM.get(), GrindstoneGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.DIAMOND_GOLEM.get(), DiamondGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.CHORUS_GOLEM.get(), ChorusGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.DIAMOND_FROST_PROJECTILE.get(), DiamondFrostProjectileRenderer::new);
+        event.registerEntityRenderer(ModEntities.HYDRANTOR_GOLEM.get(), HydrantorGolemRenderer::new);
+        event.registerEntityRenderer(ModEntities.DRILLER.get(), DrillerRenderer::new);
+        event.registerEntityRenderer(ModEntities.KRILLATHAN.get(), KrillathanRenderer::new);
+        event.registerEntityRenderer(ModEntities.KRILLATHAN_BABY.get(), KrillathanRenderer::new);
+        event.registerEntityRenderer(ModEntities.BULLSQUAMA.get(), BullsquamaRenderer::new);
+        event.registerEntityRenderer(ModEntities.MUDDER.get(), MudderRenderer::new);
+
+    }
+}

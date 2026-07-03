@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "sculkeritegreatsword:block/gear_copper_block_top",
+    "side": "sculkeritegreatsword:block/gear_copper_block_side"
+  }
+}

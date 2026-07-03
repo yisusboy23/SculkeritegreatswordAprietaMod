@@ -1,0 +1,38 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "sculkeritegreatsword:item/tersectact_close"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 0
+      },
+      "model": "sculkeritegreatsword:item/tersectact_close"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "sculkeritegreatsword:item/tersectact_hand"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "sculkeritegreatsword:item/tersectact_charged"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "sculkeritegreatsword:item/tersectact_charged_2"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 4
+      },
+      "model": "sculkeritegreatsword:item/tersectact_charged_3"
+    }
+  ]
+}

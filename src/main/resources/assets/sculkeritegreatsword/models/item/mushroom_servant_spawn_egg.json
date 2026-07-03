@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "sculkeritegreatsword:item/mushroom_servant_spawn_egg"
+  }
+}

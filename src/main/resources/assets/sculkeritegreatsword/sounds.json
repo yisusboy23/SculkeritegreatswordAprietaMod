@@ -1,0 +1,52 @@
+{
+  "sword_hit": {
+    "category": "players",
+    "subtitle": "subtitles.sculkerite_greatsword_hit",
+    "sounds": [
+      {
+        "name": "sculkeritegreatsword:sword_hit",
+        "stream": false
+      }
+    ]
+  },
+  "sonic_boom": {
+    "category": "players",
+    "subtitle": "subtitles.sculkerite_greatsword_dash",
+    "sounds": [
+      {
+        "name": "sculkeritegreatsword:sonic_boom",
+        "stream": false
+      }
+    ]
+  },
+  "dash_hit": {
+    "category": "players",
+    "subtitle": "subtitles.sculkerite_greatsword_dash_hit",
+    "sounds": [
+      {
+        "name": "sculkeritegreatsword:dash_hit",
+        "stream": false
+      }
+    ]
+  },
+  "largeunderwaterexplosion190270mp3": {
+    "category": "players",
+    "subtitle": "subtitles.sculkerite_greatsword_explosion",
+    "sounds": [
+      {
+        "name": "sculkeritegreatsword:largeunderwaterexplosion190270mp3",
+        "stream": false
+      }
+    ]
+  },
+  "music_disc.goodbye_to_a_world": {
+    "category": "record",
+    "subtitle": "subtitles.record.goodbye_to_a_world",
+    "sounds": [
+      {
+        "name": "sculkeritegreatsword:music_disc/goodbye_to_a_world",
+        "stream": true
+      }
+    ]
+  }
+}

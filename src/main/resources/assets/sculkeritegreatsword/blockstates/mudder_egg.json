@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "sculkeritegreatsword:block/mudder_egg"
+      },
+      {
+        "model": "sculkeritegreatsword:block/mudder_egg",
+        "y": 90
+      },
+      {
+        "model": "sculkeritegreatsword:block/mudder_egg",
+        "y": 180
+      },
+      {
+        "model": "sculkeritegreatsword:block/mudder_egg",
+        "y": 270
+      }
+    ]
+  }
+}
