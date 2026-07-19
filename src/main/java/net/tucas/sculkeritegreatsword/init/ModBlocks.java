@@ -13,6 +13,7 @@ import net.tucas.sculkeritegreatsword.block.DrillerEggBlock;
 import net.tucas.sculkeritegreatsword.block.BullsquamaEggBlock;
 import net.tucas.sculkeritegreatsword.block.MudderEggBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.tucas.sculkeritegreatsword.block.PeekerFetusBlock;
 
 
 public class ModBlocks {
@@ -52,6 +53,14 @@ public class ModBlocks {
                             .strength(0.5F)
                             .sound(SoundType.BONE_BLOCK)
                             .noOcclusion()));
+
+    public static final RegistryObject<Block> PEEKER_FETUS =
+            BLOCKS.register("peeker_fetus",
+                    () -> new PeekerFetusBlock(BlockBehaviour.Properties.of()
+                            .strength(0.5F)
+                            .sound(SoundType.BONE_BLOCK)
+                            .noOcclusion()
+                            .randomTicks()));
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

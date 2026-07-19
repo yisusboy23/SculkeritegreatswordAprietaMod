@@ -36,6 +36,29 @@ public class ModSounds {
             SOUNDS.register("music_disc.goodbye_to_a_world", () ->
                     SoundEvent.createFixedRangeEvent(
                             new ResourceLocation(Sculkeritegreatsword.MOD_ID, "music_disc.goodbye_to_a_world"), 16.0F));
+    public static final RegistryObject<SoundEvent> PEEKER_IDLE =
+            SOUNDS.register("peeker_idle", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "peeker_idle")));
+
+    public static final RegistryObject<SoundEvent> PEEKER_HURT =
+            SOUNDS.register("peeker_hurt", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "peeker_hurt")));
+
+    public static final RegistryObject<SoundEvent> PEEKER_EXPLODE =
+            SOUNDS.register("peeker_explode", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "peeker_explode")));
+    public static final RegistryObject<SoundEvent> BABY_PEEKER_IDLE =
+            SOUNDS.register("baby_peeker_idle", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "baby_peeker_idle")));
+
+    public static final RegistryObject<SoundEvent> BABY_PEEKER_HURT =
+            SOUNDS.register("baby_peeker_hurt", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "baby_peeker_hurt")));
 
     public static void register(IEventBus eventBus) {
         SOUNDS.register(eventBus);

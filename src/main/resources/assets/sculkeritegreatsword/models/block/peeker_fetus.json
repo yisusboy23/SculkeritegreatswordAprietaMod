@@ -1,0 +1,8 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "sculkeritegreatsword:block/peeker_fetus",
+    "particle": "sculkeritegreatsword:block/peeker_fetus"
+  },
+  "render_type": "cutout"
+}

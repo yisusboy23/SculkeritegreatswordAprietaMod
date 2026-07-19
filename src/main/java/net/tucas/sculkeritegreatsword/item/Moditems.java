@@ -175,6 +175,9 @@ public class Moditems {
     public static final RegistryObject<Item> MUDDER_EGG =
             ITEMS.register("mudder_egg",
                     () -> new BlockItem(ModBlocks.MUDDER_EGG.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PEEKER_FETUS =
+            ITEMS.register("peeker_fetus",
+                    () -> new BlockItem(ModBlocks.PEEKER_FETUS.get(), new Item.Properties()));
 
     public static final RegistryObject<Item> GEAR_COPPER_BLOCK = ITEMS.register("gear_copper_block",
             () -> new BlockItem(ModBlocks.GEAR_COPPER_BLOCK.get(), new Item.Properties()));

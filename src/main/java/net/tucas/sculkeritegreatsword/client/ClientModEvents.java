@@ -21,6 +21,7 @@ import net.tucas.sculkeritegreatsword.client.renderer.BullsquamaRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.MudderRenderer;
 import net.tucas.sculkeritegreatsword.init.ModEntities;
 import net.tucas.sculkeritegreatsword.client.renderer.DrillerRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.PeekerRenderer;
 
 @Mod.EventBusSubscriber(modid = Sculkeritegreatsword.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientModEvents {
@@ -43,6 +44,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(ModEntities.KRILLATHAN_BABY.get(), KrillathanRenderer::new);
         event.registerEntityRenderer(ModEntities.BULLSQUAMA.get(), BullsquamaRenderer::new);
         event.registerEntityRenderer(ModEntities.MUDDER.get(), MudderRenderer::new);
+        event.registerEntityRenderer(ModEntities.PEEKER.get(), PeekerRenderer::new);
 
     }
 }
