@@ -60,6 +60,7 @@ public class ModCreativeModeTabs {
                         output.accept(Moditems.MUDDER_BUCKET.get());
                         output.accept(Moditems.MUDDER_EGG.get());
                         output.accept(Moditems.PEEKER_FETUS.get());
+                        output.accept(Moditems.PEEKER_SPAWN_EGG.get());
                         // Libro 1 - Fast Recharge
                         ItemStack fastRechargeBook = new ItemStack(Items.ENCHANTED_BOOK);
                         ListTag enchantments1 = new ListTag();

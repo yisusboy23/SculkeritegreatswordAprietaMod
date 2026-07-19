@@ -168,6 +168,14 @@ public class Moditems {
                             0x800080,  // Morado
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
+    public static final RegistryObject<Item> PEEKER_SPAWN_EGG =
+            ITEMS.register("peeker_spawn_egg",
+                    () -> new ForgeSpawnEggItem(
+                            ModEntities.PEEKER,
+                            0x1A1A1A,  // Negro principal
+                            0x808080,  // Gris secundario
+                            new Item.Properties().rarity(Rarity.UNCOMMON)
+                    ));
     public static final RegistryObject<Item> MUDDER_BUCKET =
             ITEMS.register("mudder_bucket",
                     () -> new MudderBucketItem(

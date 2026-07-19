@@ -19,8 +19,8 @@
   "item.sculkeritegreatsword.oxicopper_golem_spawn_egg": "Oxicopper Golem Spawn Egg",
   "entity.sculkeritegreatsword.mushroom_golem": "Mushroom Golem",
   "item.sculkeritegreatsword.mushroom_golem_spawn_egg": "Mushroom Golem Spawn Egg",
-  "entity.sculkeritegreatsword.mushroom_servant": "Mushroom Servant",
-  "item.sculkeritegreatsword.mushroom_servant_spawn_egg": "spore sac",
+  "entity.sculkeritegreatsword.mushroom_servant": "Shroomer",
+  "item.sculkeritegreatsword.mushroom_servant_spawn_egg": "Shroomers sac",
   "block.sculkeritegreatsword.gear_copper_block": "Gear Copper Block",
   "entity.sculkeritegreatsword.lapis_golem": "Lapis Golem",
   "item.sculkeritegreatsword.lapis_golem_spawn_egg": "Lapis Golem Spawn Egg",
@@ -53,5 +53,9 @@
   "item.sculkeritegreatsword.mudder_spawn_egg": "Mudder Spawn Egg",
   "item.sculkeritegreatsword.mudder_bucket": "Mudder Bucket",
   "block.sculkeritegreatsword.mudder_egg": "Mudder Eggs",
-  "item.sculkeritegreatsword.mudder_egg": "Mudder Eggs"
+  "item.sculkeritegreatsword.mudder_egg": "Mudder Eggs",
+  "entity.sculkeritegreatsword.peeker": "Peeker",
+  "item.sculkeritegreatsword.peeker_spawn_egg": "Peeker Spawn Egg",
+  "item.sculkeritegreatsword.peeker_fetus": "Peeker Fetus",
+  "block.sculkeritegreatsword.peeker_fetus": "Peeker Fetus"
 }
