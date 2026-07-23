@@ -187,7 +187,7 @@ public class Moditems {
             ITEMS.register("peeker_fetus",
                     () -> new BlockItem(ModBlocks.PEEKER_FETUS.get(), new Item.Properties()));
     public static final RegistryObject<Item> MANDRAKE_ROOT = ITEMS.register("mandrake_root",
-            () -> new Item(new Item.Properties()));
+            () -> new MandrakeRoot(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> MANDRAKE_ROOT_PLANT = ITEMS.register("mandrake_root_plant",
             () -> new BlockItem(ModBlocks.MANDRAKE_ROOT_BLOCK.get(), new Item.Properties()));
 
