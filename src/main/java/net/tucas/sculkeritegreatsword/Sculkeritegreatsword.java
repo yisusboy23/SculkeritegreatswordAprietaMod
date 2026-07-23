@@ -24,6 +24,8 @@ import net.tucas.sculkeritegreatsword.client.renderer.SculkboomparticleRenderer;
 import net.tucas.sculkeritegreatsword.init.ModSounds;
 import net.tucas.sculkeritegreatsword.init.ModCreativeModeTabs;
 import net.tucas.sculkeritegreatsword.init.ModBlocks;
+import net.tucas.sculkeritegreatsword.events.ModBrewingRecipes;
+import net.tucas.sculkeritegreatsword.init.ModPotions;
 
 // The value here should match an entry in the META-INF/mods.toml file
 
@@ -45,6 +47,8 @@ public class Sculkeritegreatsword
         Moditems.register(modEventBus);
         ModParticles.PARTICLES.register(modEventBus);
         ModEnchantments.ENCHANTMENTS.register(modEventBus);
+        modEventBus.addListener(ModBrewingRecipes::register);
+        ModPotions.register(modEventBus);
         ModMobEffects.EFFECTS.register(modEventBus);
         ModBlocks.register(modEventBus);
 

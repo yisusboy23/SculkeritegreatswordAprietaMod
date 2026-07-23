@@ -21,7 +21,7 @@ public class WideDiggingEnchantment extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        return 2; // Nivel 1 = 2x2, Nivel 2 = 3x3
+        return 1; // Nivel 1 = 2x2, Nivel 2 = 3x3
     }
 
     @Override

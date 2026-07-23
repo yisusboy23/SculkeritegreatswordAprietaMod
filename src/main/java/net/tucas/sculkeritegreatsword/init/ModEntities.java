@@ -22,6 +22,7 @@ import net.tucas.sculkeritegreatsword.entity.custom.KrillathanEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.BullsquamaEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.MudderEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.PeekerEntity;
+import net.tucas.sculkeritegreatsword.entity.custom.MandrakeEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -166,6 +167,14 @@ public class ModEntities {
                     .sized(1.5f, 4.5f)
                     .build("peeker")
     );
+    // ── MANDRAKE ────────────────────────────────────────────────────────────────
+    public static final RegistryObject<EntityType<MandrakeEntity>> MANDRAKE = ENTITIES.register(
+            "mandrake",
+            () -> EntityType.Builder
+                    .<MandrakeEntity>of(MandrakeEntity::new, MobCategory.CREATURE)
+                    .sized(0.6f, 0.6f) // ajustá al tamaño real de tu modelo
+                    .build("mandrake")
+    );
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(SCULK_GOLEM.get(), SculkGolemEntity.createAttributes().build());
@@ -183,7 +192,8 @@ public class ModEntities {
         event.put(KRILLATHAN_BABY.get(), KrillathanEntity.createAttributes().build());
         event.put(BULLSQUAMA.get(), BullsquamaEntity.createAttributes().build());
         event.put(MUDDER.get(), MudderEntity.createAttributes().build());
-        event.put(PEEKER.get(), MudderEntity.createAttributes().build());
+        event.put(PEEKER.get(), PeekerEntity.createAttributes().build());
+        event.put(MANDRAKE.get(), MandrakeEntity.setAttributes());
 
     }
     private static <T extends net.minecraft.world.entity.Entity> RegistryObject<EntityType<T>> register(

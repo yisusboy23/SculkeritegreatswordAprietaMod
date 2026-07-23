@@ -1,9 +1,12 @@
 package net.tucas.sculkeritegreatsword.client;
 
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.tucas.sculkeritegreatsword.Sculkeritegreatsword;
 import net.tucas.sculkeritegreatsword.client.renderer.SculkGolemRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.OxicopperGolemRenderer;
@@ -20,8 +23,10 @@ import net.tucas.sculkeritegreatsword.client.renderer.KrillathanRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.BullsquamaRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.MudderRenderer;
 import net.tucas.sculkeritegreatsword.init.ModEntities;
+import net.tucas.sculkeritegreatsword.init.ModBlocks;
 import net.tucas.sculkeritegreatsword.client.renderer.DrillerRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.PeekerRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.MandrakeRenderer;
 
 @Mod.EventBusSubscriber(modid = Sculkeritegreatsword.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientModEvents {
@@ -45,6 +50,13 @@ public class ClientModEvents {
         event.registerEntityRenderer(ModEntities.BULLSQUAMA.get(), BullsquamaRenderer::new);
         event.registerEntityRenderer(ModEntities.MUDDER.get(), MudderRenderer::new);
         event.registerEntityRenderer(ModEntities.PEEKER.get(), PeekerRenderer::new);
+        event.registerEntityRenderer(ModEntities.MANDRAKE.get(), MandrakeRenderer::new);
+    }
 
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.MANDRAKE_ROOT_BLOCK.get(), RenderType.cutout());
+        });
     }
 }

@@ -59,6 +59,30 @@ public class ModSounds {
             SOUNDS.register("baby_peeker_hurt", () ->
                     SoundEvent.createVariableRangeEvent(
                             new ResourceLocation(Sculkeritegreatsword.MOD_ID, "baby_peeker_hurt")));
+    public static final RegistryObject<SoundEvent> MANDRAKE_CRY_1 =
+            SOUNDS.register("mandrake_cry_1", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "mandrake_cry_1")));
+
+    public static final RegistryObject<SoundEvent> MANDRAKE_CRY_2 =
+            SOUNDS.register("mandrake_cry_2", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "mandrake_cry_2")));
+
+    public static final RegistryObject<SoundEvent> MANDRAKE_CRY_3 =
+            SOUNDS.register("mandrake_cry_3", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "mandrake_cry_3")));
+
+    public static final RegistryObject<SoundEvent> MANDRAKE_CRY_4 =
+            SOUNDS.register("mandrake_cry_4", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "mandrake_cry_4")));
+
+    public static final RegistryObject<SoundEvent> MANDRAKE_CRY_5 =
+            SOUNDS.register("mandrake_cry_5", () ->
+                    SoundEvent.createVariableRangeEvent(
+                            new ResourceLocation(Sculkeritegreatsword.MOD_ID, "mandrake_cry_5")));
 
     public static void register(IEventBus eventBus) {
         SOUNDS.register(eventBus);

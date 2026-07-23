@@ -57,5 +57,15 @@
   "entity.sculkeritegreatsword.peeker": "Peeker",
   "item.sculkeritegreatsword.peeker_spawn_egg": "Peeker Spawn Egg",
   "item.sculkeritegreatsword.peeker_fetus": "Peeker Fetus",
-  "block.sculkeritegreatsword.peeker_fetus": "Peeker Fetus"
+  "entity.sculkeritegreatsword.mandrake": "Mandrake",
+  "item.sculkeritegreatsword.mandrake_spawn_egg": "Mandrake Spawn Egg",
+  "item.sculkeritegreatsword.mandrake_root": "Mandrake root",
+  "block.sculkeritegreatsword.mandrake_root": "Mandrake Root",
+  "subtitles.mandrake_cry": "Mandrake cries",
+  "item.minecraft.potion.effect.mandrake_song": "Shriek",
+  "item.minecraft.splash_potion.effect.mandrake_song": "Splash Potion of Shriek",
+  "item.minecraft.lingering_potion.effect.mandrake_song": "Lingering Potion of Shriek",
+  "item.minecraft.tipped_arrow.effect.mandrake_song": "Arrow of Shriek",
+
+  "effect.sculkeritegreatsword.mandrake_song": "Shriek"
 }

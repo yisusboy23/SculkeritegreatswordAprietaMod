@@ -3,124 +3,117 @@
     "category": "players",
     "subtitle": "subtitles.sculkerite_greatsword_hit",
     "sounds": [
-      {
-        "name": "sculkeritegreatsword:sword_hit",
-        "stream": false
-      }
+      { "name": "sculkeritegreatsword:sword_hit", "stream": false }
     ]
   },
   "sonic_boom": {
     "category": "players",
     "subtitle": "subtitles.sculkerite_greatsword_dash",
     "sounds": [
-      {
-        "name": "sculkeritegreatsword:sonic_boom",
-        "stream": false
-      }
+      { "name": "sculkeritegreatsword:sonic_boom", "stream": false }
     ]
   },
   "dash_hit": {
     "category": "players",
     "subtitle": "subtitles.sculkerite_greatsword_dash_hit",
     "sounds": [
-      {
-        "name": "sculkeritegreatsword:dash_hit",
-        "stream": false
-      }
+      { "name": "sculkeritegreatsword:dash_hit", "stream": false }
     ]
   },
   "largeunderwaterexplosion190270mp3": {
     "category": "players",
     "subtitle": "subtitles.sculkerite_greatsword_explosion",
     "sounds": [
-      {
-        "name": "sculkeritegreatsword:largeunderwaterexplosion190270mp3",
-        "stream": false
-      }
+      { "name": "sculkeritegreatsword:largeunderwaterexplosion190270mp3", "stream": false }
     ]
   },
   "music_disc.goodbye_to_a_world": {
     "category": "record",
     "subtitle": "subtitles.record.goodbye_to_a_world",
     "sounds": [
-      {
-        "name": "sculkeritegreatsword:music_disc/goodbye_to_a_world",
-        "stream": true
-      }
+      { "name": "sculkeritegreatsword:music_disc/goodbye_to_a_world", "stream": true }
     ]
   },
   "peeker_idle": {
     "category": "neutral",
     "subtitle": "subtitles.peeker_idle",
     "sounds": [
-      {
-        "name": "sculkeritegreatsword:peeker_idle_1",
-        "stream": false
-      },
-      {
-        "name": "sculkeritegreatsword:peeker_idle_2",
-        "stream": false
-      },
-      {
-        "name": "sculkeritegreatsword:peeker_idle_3",
-        "stream": false
-      },
-      {
-        "name": "sculkeritegreatsword:peeker_idle_4",
-        "stream": false
-      }
+      { "name": "sculkeritegreatsword:peeker_idle_1", "stream": false },
+      { "name": "sculkeritegreatsword:peeker_idle_2", "stream": false },
+      { "name": "sculkeritegreatsword:peeker_idle_3", "stream": false },
+      { "name": "sculkeritegreatsword:peeker_idle_4", "stream": false }
     ]
   },
   "peeker_hurt": {
     "category": "neutral",
     "subtitle": "subtitles.peeker_hurt",
     "sounds": [
-      {
-        "name": "sculkeritegreatsword:peeker_hurt_1",
-        "stream": false
-      },
-      {
-        "name": "sculkeritegreatsword:peeker_hurt_2",
-        "stream": false
-      },
-      {
-        "name": "sculkeritegreatsword:peeker_hurt_3",
-        "stream": false
-      },
-      {
-        "name": "sculkeritegreatsword:peeker_hurt_4",
-        "stream": false
-      }
+      { "name": "sculkeritegreatsword:peeker_hurt_1", "stream": false },
+      { "name": "sculkeritegreatsword:peeker_hurt_2", "stream": false },
+      { "name": "sculkeritegreatsword:peeker_hurt_3", "stream": false },
+      { "name": "sculkeritegreatsword:peeker_hurt_4", "stream": false }
     ]
   },
   "peeker_explode": {
     "category": "neutral",
     "subtitle": "subtitles.peeker_explode",
     "sounds": [
-      {
-        "name": "sculkeritegreatsword:peeker_explode",
-        "stream": false
-      }
-    ],
-    "baby_peeker_idle": {
-      "category": "neutral",
-      "subtitle": "subtitles.baby_peeker_idle",
-      "sounds": [
-        { "name": "sculkeritegreatsword:baby_peeker_idle_1", "stream": false },
-        { "name": "sculkeritegreatsword:baby_peeker_idle_2", "stream": false },
-        { "name": "sculkeritegreatsword:baby_peeker_idle_3", "stream": false },
-        { "name": "sculkeritegreatsword:baby_peeker_idle_4", "stream": false }
-      ]
-    },
-    "baby_peeker_hurt": {
-      "category": "neutral",
-      "subtitle": "subtitles.baby_peeker_hurt",
-      "sounds": [
-        { "name": "sculkeritegreatsword:baby_peeker_hurt_1", "stream": false },
-        { "name": "sculkeritegreatsword:baby_peeker_hurt_2", "stream": false },
-        { "name": "sculkeritegreatsword:baby_peeker_hurt_3", "stream": false },
-        { "name": "sculkeritegreatsword:baby_peeker_hurt_4", "stream": false }
-      ]
-    }
+      { "name": "sculkeritegreatsword:peeker_explode", "stream": false }
+    ]
+  },
+  "baby_peeker_idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.baby_peeker_idle",
+    "sounds": [
+      { "name": "sculkeritegreatsword:baby_peeker_idle_1", "stream": false },
+      { "name": "sculkeritegreatsword:baby_peeker_idle_2", "stream": false },
+      { "name": "sculkeritegreatsword:baby_peeker_idle_3", "stream": false },
+      { "name": "sculkeritegreatsword:baby_peeker_idle_4", "stream": false }
+    ]
+  },
+  "baby_peeker_hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.baby_peeker_hurt",
+    "sounds": [
+      { "name": "sculkeritegreatsword:baby_peeker_hurt_1", "stream": false },
+      { "name": "sculkeritegreatsword:baby_peeker_hurt_2", "stream": false },
+      { "name": "sculkeritegreatsword:baby_peeker_hurt_3", "stream": false },
+      { "name": "sculkeritegreatsword:baby_peeker_hurt_4", "stream": false }
+    ]
+  },
+  "mandrake_cry_1": {
+    "category": "neutral",
+    "subtitle": "subtitles.mandrake_cry",
+    "sounds": [
+      { "name": "sculkeritegreatsword:mandrake_cry_1", "stream": false }
+    ]
+  },
+  "mandrake_cry_2": {
+    "category": "neutral",
+    "subtitle": "subtitles.mandrake_cry",
+    "sounds": [
+      { "name": "sculkeritegreatsword:mandrake_cry_2", "stream": false }
+    ]
+  },
+  "mandrake_cry_3": {
+    "category": "neutral",
+    "subtitle": "subtitles.mandrake_cry",
+    "sounds": [
+      { "name": "sculkeritegreatsword:mandrake_cry_3", "stream": false }
+    ]
+  },
+  "mandrake_cry_4": {
+    "category": "neutral",
+    "subtitle": "subtitles.mandrake_cry",
+    "sounds": [
+      { "name": "sculkeritegreatsword:mandrake_cry_4", "stream": false }
+    ]
+  },
+  "mandrake_cry_5": {
+    "category": "neutral",
+    "subtitle": "subtitles.mandrake_cry",
+    "sounds": [
+      { "name": "sculkeritegreatsword:mandrake_cry_5", "stream": false }
+    ]
   }
 }

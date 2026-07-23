@@ -186,6 +186,10 @@ public class Moditems {
     public static final RegistryObject<Item> PEEKER_FETUS =
             ITEMS.register("peeker_fetus",
                     () -> new BlockItem(ModBlocks.PEEKER_FETUS.get(), new Item.Properties()));
+    public static final RegistryObject<Item> MANDRAKE_ROOT = ITEMS.register("mandrake_root",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MANDRAKE_ROOT_PLANT = ITEMS.register("mandrake_root_plant",
+            () -> new BlockItem(ModBlocks.MANDRAKE_ROOT_BLOCK.get(), new Item.Properties()));
 
     public static final RegistryObject<Item> GEAR_COPPER_BLOCK = ITEMS.register("gear_copper_block",
             () -> new BlockItem(ModBlocks.GEAR_COPPER_BLOCK.get(), new Item.Properties()));
@@ -194,6 +198,15 @@ public class Moditems {
             ITEMS.register("mushroom_servant_spawn_egg",
                     () -> new MushroomServantSpawnEggItem(
                             new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> MANDRAKE_SPAWN_EGG =
+            ITEMS.register("mandrake_spawn_egg",
+                    () -> new ForgeSpawnEggItem(
+                            ModEntities.MANDRAKE,
+                            0x4A7C3A,  // Verde raíz principal
+                            0x8B5A2B,  // Marrón tierra secundario
+                            new Item.Properties().rarity(Rarity.UNCOMMON)
+                    ));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

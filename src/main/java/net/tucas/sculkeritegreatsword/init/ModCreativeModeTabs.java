@@ -33,15 +33,19 @@ public class ModCreativeModeTabs {
                         output.accept(Moditems.GOODBYE_TO_A_WORLD_MUSIC_DISC.get());
                         output.accept(Moditems.PAXEL.get());
                         output.accept(Moditems.DRAGON_PAXEL.get());
-                        output.accept(Moditems.DRILLER_CLAW.get());
                         output.accept(Moditems.TERSECTACT.get());
                         // Bloques
                         output.accept(Moditems.GEAR_COPPER_BLOCK.get());
                         output.accept(Moditems.KRILLATHAN_EGG.get());
-                        output.accept(Moditems.DRILLER_SPAWN_EGG.get());
+                        output.accept(Moditems.BULLSQUAMA_EGG.get());
+                        output.accept(Moditems.DRILLER_EGG.get());
+                        output.accept(Moditems.MUDDER_EGG.get());
                         output.accept(Moditems.BABY_KRILLATHAN_BUCKET.get());
                         output.accept(Moditems.KELP_ON_A_STICK.get());
-                        output.accept(Moditems.DRILLER_EGG.get());
+                        output.accept(Moditems.MUDDER_BUCKET.get());
+                        output.accept(Moditems.DRILLER_CLAW.get());
+                        output.accept(Moditems.PEEKER_FETUS.get());
+                        output.accept(Moditems.MANDRAKE_ROOT.get());
                         // Spawn Eggs
                         output.accept(Moditems.MUSHROOM_SERVANT_SPAWN_EGG.get());
                         output.accept(Moditems.SCULK_GOLEM_SPAWN_EGG.get());
@@ -55,12 +59,9 @@ public class ModCreativeModeTabs {
                         output.accept(Moditems.DRILLER_SPAWN_EGG.get());
                         output.accept(Moditems.KRILLATHAN_SPAWN_EGG.get());
                         output.accept(Moditems.BULLSQUAMA_SPAWN_EGG.get());
-                        output.accept(Moditems.BULLSQUAMA_EGG.get());
                         output.accept(Moditems.MUDDER_SPAWN_EGG.get());
-                        output.accept(Moditems.MUDDER_BUCKET.get());
-                        output.accept(Moditems.MUDDER_EGG.get());
-                        output.accept(Moditems.PEEKER_FETUS.get());
                         output.accept(Moditems.PEEKER_SPAWN_EGG.get());
+                        output.accept(Moditems.MANDRAKE_SPAWN_EGG.get());
                         // Libro 1 - Fast Recharge
                         ItemStack fastRechargeBook = new ItemStack(Items.ENCHANTED_BOOK);
                         ListTag enchantments1 = new ListTag();
@@ -80,26 +81,6 @@ public class ModCreativeModeTabs {
                         enchantments2.add(enchantment2);
                         kineticEnergyBook.getOrCreateTag().put("StoredEnchantments", enchantments2);
                         output.accept(kineticEnergyBook);
-
-                        // Libro 3 - Wide Digging (Nivel 1)
-                        ItemStack wideDiggingBook1 = new ItemStack(Items.ENCHANTED_BOOK);
-                        ListTag enchantments3 = new ListTag();
-                        CompoundTag enchantment3 = new CompoundTag();
-                        enchantment3.putString("id", BuiltInRegistries.ENCHANTMENT.getKey(ModEnchantments.WIDE_DIGGING.get()).toString());
-                        enchantment3.putShort("lvl", (short) 1);
-                        enchantments3.add(enchantment3);
-                        wideDiggingBook1.getOrCreateTag().put("StoredEnchantments", enchantments3);
-                        output.accept(wideDiggingBook1);
-
-                        // Libro 4 - Wide Digging (Nivel 2)
-                        ItemStack wideDiggingBook2 = new ItemStack(Items.ENCHANTED_BOOK);
-                        ListTag enchantments4 = new ListTag();
-                        CompoundTag enchantment4 = new CompoundTag();
-                        enchantment4.putString("id", BuiltInRegistries.ENCHANTMENT.getKey(ModEnchantments.WIDE_DIGGING.get()).toString());
-                        enchantment4.putShort("lvl", (short) 2);
-                        enchantments4.add(enchantment4);
-                        wideDiggingBook2.getOrCreateTag().put("StoredEnchantments", enchantments4);
-                        output.accept(wideDiggingBook2);
                     })
                     .build());
 

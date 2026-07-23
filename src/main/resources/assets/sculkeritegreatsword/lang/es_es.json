@@ -57,5 +57,15 @@
   "entity.sculkeritegreatsword.peeker": "Peeker",
   "item.sculkeritegreatsword.peeker_spawn_egg": "Generador de Peeker",
   "item.sculkeritegreatsword.peeker_fetus": "Feto de Peeker",
-  "block.sculkeritegreatsword.peeker_fetus": "Feto de Peeker"
+  "block.sculkeritegreatsword.peeker_fetus": "Feto de Peeker",
+  "entity.sculkeritegreatsword.mandrake": "Mandrágora",
+  "item.sculkeritegreatsword.mandrake_spawn_egg": "Generador de Mandrágora",
+  "item.sculkeritegreatsword.mandrake_root": "Raiz de Mandrágora",
+  "block.sculkeritegreatsword.mandrake_root": "Raiz de Mandrágora",
+  "subtitles.mandrake_cry": "Llanto de la Mandrágora",
+  "item.minecraft.potion.effect.mandrake_song": "Alarido",
+  "item.minecraft.splash_potion.effect.mandrake_song": "Poción Arrojadiza de Alarido",
+  "item.minecraft.lingering_potion.effect.mandrake_song": "Poción Persistente de Alarido",
+  "item.minecraft.tipped_arrow.effect.mandrake_song": "Flecha de Alarido",
+  "effect.sculkeritegreatsword.mandrake_song": "Alarido"
 }

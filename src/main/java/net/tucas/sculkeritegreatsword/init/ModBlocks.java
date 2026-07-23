@@ -12,6 +12,7 @@ import net.tucas.sculkeritegreatsword.block.KrillathanEggBlock;
 import net.tucas.sculkeritegreatsword.block.DrillerEggBlock;
 import net.tucas.sculkeritegreatsword.block.BullsquamaEggBlock;
 import net.tucas.sculkeritegreatsword.block.MudderEggBlock;
+import net.tucas.sculkeritegreatsword.block.MandrakeRootBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.tucas.sculkeritegreatsword.block.PeekerFetusBlock;
 
@@ -61,6 +62,13 @@ public class ModBlocks {
                             .sound(SoundType.BONE_BLOCK)
                             .noOcclusion()
                             .randomTicks()));
+    public static final RegistryObject<Block> MANDRAKE_ROOT_BLOCK =
+            BLOCKS.register("mandrake_root_block",
+                    () -> new MandrakeRootBlock(BlockBehaviour.Properties.of()
+                            .strength(0.0F)
+                            .sound(SoundType.CROP)
+                            .noCollission()
+                            .instabreak()));
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
