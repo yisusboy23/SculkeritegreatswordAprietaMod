@@ -27,6 +27,7 @@ import net.tucas.sculkeritegreatsword.init.ModBlocks;
 import net.tucas.sculkeritegreatsword.client.renderer.DrillerRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.PeekerRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.MandrakeRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 @Mod.EventBusSubscriber(modid = Sculkeritegreatsword.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientModEvents {
@@ -51,6 +52,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(ModEntities.MUDDER.get(), MudderRenderer::new);
         event.registerEntityRenderer(ModEntities.PEEKER.get(), PeekerRenderer::new);
         event.registerEntityRenderer(ModEntities.MANDRAKE.get(), MandrakeRenderer::new);
+        event.registerEntityRenderer(ModEntities.SPORES_SHROOMERS.get(), ThrownItemRenderer::new);
     }
 
     @SubscribeEvent

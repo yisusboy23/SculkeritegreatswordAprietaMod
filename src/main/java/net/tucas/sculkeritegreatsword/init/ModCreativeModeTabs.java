@@ -41,11 +41,12 @@ public class ModCreativeModeTabs {
                         output.accept(Moditems.DRILLER_EGG.get());
                         output.accept(Moditems.MUDDER_EGG.get());
                         output.accept(Moditems.BABY_KRILLATHAN_BUCKET.get());
-                        output.accept(Moditems.KELP_ON_A_STICK.get());
                         output.accept(Moditems.MUDDER_BUCKET.get());
+                        output.accept(Moditems.KELP_ON_A_STICK.get());
                         output.accept(Moditems.DRILLER_CLAW.get());
                         output.accept(Moditems.PEEKER_FETUS.get());
                         output.accept(Moditems.MANDRAKE_ROOT.get());
+                        output.accept(Moditems.SPORES_SHROOMERS.get());
                         // Spawn Eggs
                         output.accept(Moditems.MUSHROOM_SERVANT_SPAWN_EGG.get());
                         output.accept(Moditems.SCULK_GOLEM_SPAWN_EGG.get());

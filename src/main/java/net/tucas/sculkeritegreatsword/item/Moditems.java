@@ -2,7 +2,6 @@ package net.tucas.sculkeritegreatsword.item;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -11,6 +10,7 @@ import net.tucas.sculkeritegreatsword.Sculkeritegreatsword;
 import net.tucas.sculkeritegreatsword.init.ModEntities;
 import net.minecraft.world.item.BlockItem;
 import net.tucas.sculkeritegreatsword.init.ModBlocks;
+import net.tucas.sculkeritegreatsword.item.SporesShroomersItem;
 import net.minecraft.world.item.Tiers;
 
 public class Moditems {
@@ -54,6 +54,8 @@ public class Moditems {
                             new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> KELP_ON_A_STICK = ITEMS.register("kelp_on_a_stick",
             () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SPORES_SHROOMERS = ITEMS.register("spores_shroomers",
+            () -> new SporesShroomersItem(new Item.Properties().stacksTo(16)));
 
     public static final RegistryObject<Item> DRILLER_EGG = ITEMS.register("driller_egg",
             () -> new BlockItem(ModBlocks.DRILLER_EGG.get(), new Item.Properties()));
@@ -62,120 +64,113 @@ public class Moditems {
                     () -> new BlockItem(ModBlocks.BULLSQUAMA_EGG.get(),
                             new Item.Properties()));
 
+    // SPAWN EGGS CON TEXTURA PERSONALIZADA - PASAR RegistryObject SIN .get()
+// SPAWN EGGS CON TEXTURA PERSONALIZADA
     public static final RegistryObject<Item> SCULK_GOLEM_SPAWN_EGG =
             ITEMS.register("sculk_golem_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.SCULK_GOLEM,
-                            0x2C2C2C,
-                            0x0F5E5A,
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
     public static final RegistryObject<Item> OXICOPPER_GOLEM_SPAWN_EGG =
             ITEMS.register("oxicopper_golem_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.OXICOPPER_GOLEM,
-                            0xC77340,
-                            0x4A7C59,
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
     public static final RegistryObject<Item> MUSHROOM_GOLEM_SPAWN_EGG =
             ITEMS.register("mushroom_golem_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.MUSHROOM_GOLEM,
-                            0xDC143C,
-                            0xF5F5F5,
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
     public static final RegistryObject<Item> LAPIS_GOLEM_SPAWN_EGG =
             ITEMS.register("lapis_golem_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.LAPIS_GOLEM,
-                            0x1E40AF,
-                            0x60A5FA,
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
     public static final RegistryObject<Item> GRINDSTONE_GOLEM_SPAWN_EGG =
             ITEMS.register("grindstone_golem_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.GRINDSTONE_GOLEM,
-                            0x7A7A7A,
-                            0x8B5A2B,
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
     public static final RegistryObject<Item> DIAMOND_GOLEM_SPAWN_EGG =
             ITEMS.register("diamond_golem_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.DIAMOND_GOLEM,
-                            0x5DCCDB,
-                            0xB9F2FF,
                             new Item.Properties().rarity(Rarity.RARE)
                     ));
 
     public static final RegistryObject<Item> CHORUS_GOLEM_SPAWN_EGG =
             ITEMS.register("chorus_golem_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.CHORUS_GOLEM,
-                            0xE8D4F7,
-                            0x4A1E6B,
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
     public static final RegistryObject<Item> HYDRANTOR_GOLEM_SPAWN_EGG =
             ITEMS.register("hydrantor_golem_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.HYDRANTOR_GOLEM,
-                            0xC46200,
-                            0x4682B4,
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
     public static final RegistryObject<Item> DRILLER_SPAWN_EGG =
             ITEMS.register("driller_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.DRILLER,
-                            0x8B4513,
-                            0x1E40AF,
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
-    // ── Krillathan Spawn Egg  (azul principal, morado azulado secundario) ──
     public static final RegistryObject<Item> KRILLATHAN_SPAWN_EGG =
             ITEMS.register("krillathan_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.KRILLATHAN,
-                            0x1A6ECC,  // Azul oceánico principal
-                            0x5B3A8A,  // Morado azulado secundario
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
+
     public static final RegistryObject<Item> BULLSQUAMA_SPAWN_EGG =
             ITEMS.register("bullsquama_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.BULLSQUAMA,
-                            0x90EE90,  // verde claro
-                            0xFFCC99,  // naranja claro
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
+
     public static final RegistryObject<Item> MUDDER_SPAWN_EGG =
             ITEMS.register("mudder_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.MUDDER,
-                            0xFFA500,  // Amarillo naranjoso (naranja)
-                            0x800080,  // Morado
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
+
     public static final RegistryObject<Item> PEEKER_SPAWN_EGG =
             ITEMS.register("peeker_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
+                    () -> new CustomSpawnEggItem(
                             ModEntities.PEEKER,
-                            0x1A1A1A,  // Negro principal
-                            0x808080,  // Gris secundario
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
+
+    public static final RegistryObject<Item> MUSHROOM_SERVANT_SPAWN_EGG =
+            ITEMS.register("mushroom_servant_spawn_egg",
+                    () -> new CustomSpawnEggItem(
+                            ModEntities.MUSHROOM_SERVANT,
+                            new Item.Properties().rarity(Rarity.UNCOMMON)
+                    ));
+
+    public static final RegistryObject<Item> MANDRAKE_SPAWN_EGG =
+            ITEMS.register("mandrake_spawn_egg",
+                    () -> new CustomSpawnEggItem(
+                            ModEntities.MANDRAKE,
+                            new Item.Properties().rarity(Rarity.UNCOMMON)
+                    ));
+
     public static final RegistryObject<Item> MUDDER_BUCKET =
             ITEMS.register("mudder_bucket",
                     () -> new MudderBucketItem(
@@ -193,20 +188,6 @@ public class Moditems {
 
     public static final RegistryObject<Item> GEAR_COPPER_BLOCK = ITEMS.register("gear_copper_block",
             () -> new BlockItem(ModBlocks.GEAR_COPPER_BLOCK.get(), new Item.Properties()));
-
-    public static final RegistryObject<Item> MUSHROOM_SERVANT_SPAWN_EGG =
-            ITEMS.register("mushroom_servant_spawn_egg",
-                    () -> new MushroomServantSpawnEggItem(
-                            new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> MANDRAKE_SPAWN_EGG =
-            ITEMS.register("mandrake_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
-                            ModEntities.MANDRAKE,
-                            0x4A7C3A,  // Verde raíz principal
-                            0x8B5A2B,  // Marrón tierra secundario
-                            new Item.Properties().rarity(Rarity.UNCOMMON)
-                    ));
-
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

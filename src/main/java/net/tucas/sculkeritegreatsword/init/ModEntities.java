@@ -24,6 +24,7 @@ import net.tucas.sculkeritegreatsword.entity.custom.MudderEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.PeekerEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.MandrakeEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.tucas.sculkeritegreatsword.entity.custom.SporesShroomersEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -175,6 +176,13 @@ public class ModEntities {
                     .sized(0.6f, 0.6f) // ajustá al tamaño real de tu modelo
                     .build("mandrake")
     );
+    public static final RegistryObject<EntityType<SporesShroomersEntity>> SPORES_SHROOMERS =
+            ENTITIES.register("spores_shroomers",
+                    () -> EntityType.Builder.<SporesShroomersEntity>of(SporesShroomersEntity::new, MobCategory.MISC)
+                            .sized(0.25F, 0.25F)
+                            .clientTrackingRange(4)
+                            .updateInterval(10)
+                            .build("spores_shroomers"));
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(SCULK_GOLEM.get(), SculkGolemEntity.createAttributes().build());
