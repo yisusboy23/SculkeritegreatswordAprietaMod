@@ -1,0 +1,194 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "CuerpoCompleto",
+					"pivot": [0, 4, 0]
+				},
+				{
+					"name": "Torso",
+					"parent": "CuerpoCompleto",
+					"pivot": [-0.41667, 12, 1.5],
+					"cubes": [
+						{"origin": [-4, 12, -0.5], "size": [7, 12, 4], "uv": [0, 23]}
+					]
+				},
+				{
+					"name": "Cabeza",
+					"parent": "Torso",
+					"pivot": [-0.75, 23.5, 1]
+				},
+				{
+					"name": "BocaS",
+					"parent": "Cabeza",
+					"pivot": [-0.5, 24.70833, 4.08333],
+					"cubes": [
+						{"origin": [-5, 24, -2.5], "size": [9, 6.5, 7], "inflate": -0.5, "uv": [0, 0]},
+						{"origin": [-1.75, 24, -2.5], "size": [2.5, 3, 1.5], "uv": [0, 48]}
+					]
+				},
+				{
+					"name": "Rejilla",
+					"parent": "BocaS",
+					"pivot": [-0.5, 30.375, 1]
+				},
+				{
+					"name": "RejillaD",
+					"parent": "Rejilla",
+					"pivot": [-0.5, 30.375, 1],
+					"cubes": [
+						{
+							"origin": [-1, 26, -1.5],
+							"size": [5.25, 4.75, 5],
+							"inflate": -0.5,
+							"uv": {
+								"north": {"uv": [37, 5], "uv_size": [5, 4]},
+								"east": {"uv": [32, 5], "uv_size": [5, 4]},
+								"south": {"uv": [47, 5], "uv_size": [5, 4]},
+								"west": {"uv": [42, 5], "uv_size": [5, 4]},
+								"up": {"uv": [37, 5], "uv_size": [5, -5], "uv_rotation": 180},
+								"down": {"uv": [42, 5], "uv_size": [5, -5]}
+							}
+						}
+					]
+				},
+				{
+					"name": "RejillaI",
+					"parent": "Rejilla",
+					"pivot": [-0.5, 30.375, 1],
+					"cubes": [
+						{
+							"origin": [-5.25, 26, -1.5],
+							"size": [5.25, 4.75, 5],
+							"inflate": -0.5,
+							"uv": {
+								"north": {"uv": [37, 5], "uv_size": [5, 4]},
+								"east": {"uv": [32, 5], "uv_size": [5, 4]},
+								"south": {"uv": [47, 5], "uv_size": [5, 4]},
+								"west": {"uv": [42, 5], "uv_size": [5, 4]},
+								"up": {"uv": [37, 0], "uv_size": [5, 5]},
+								"down": {"uv": [42, 5], "uv_size": [5, -5]}
+							}
+						}
+					]
+				},
+				{
+					"name": "BocaI",
+					"parent": "Cabeza",
+					"pivot": [-0.5, 24.5, 4],
+					"cubes": [
+						{"origin": [-4.5, 23.5, -2], "size": [8, 1, 6], "uv": [0, 13]},
+						{"origin": [0.75, 23.5, -2.75], "size": [1, 1, 0.75], "uv": [0, 0]},
+						{"origin": [-2.75, 23.5, -2.75], "size": [1, 1, 0.75], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Brazos",
+					"parent": "Torso",
+					"pivot": [-0.75, 23, 2]
+				},
+				{
+					"name": "BrazoD",
+					"parent": "Brazos",
+					"pivot": [3.125, 22.25, 1.5],
+					"cubes": [
+						{"origin": [2, 14, -0.75], "size": [4.5, 10, 4.5], "inflate": -1, "pivot": [4.25, 19, 1.5], "rotation": [0, 180, 0], "uv": [0, 39]}
+					]
+				},
+				{
+					"name": "PinzaD",
+					"parent": "BrazoD",
+					"pivot": [4, 15, 1.25]
+				},
+				{
+					"name": "PinzaA",
+					"parent": "PinzaD",
+					"pivot": [4.25, 15.5, 1.5],
+					"cubes": [
+						{
+							"origin": [1.75, 8, -1.15],
+							"size": [5, 8.5, 4.5],
+							"inflate": -1,
+							"uv": {
+								"north": {"uv": [47, 23], "uv_size": [5, 8]},
+								"east": {"uv": [43, 23], "uv_size": [4, 8]},
+								"south": {"uv": [56, 23], "uv_size": [5, 8]},
+								"west": {"uv": [52, 23], "uv_size": [4, 8]},
+								"up": {"uv": [47, 19], "uv_size": [5, 4]},
+								"down": {"uv": [52, 23], "uv_size": [5, -4]}
+							}
+						}
+					]
+				},
+				{
+					"name": "PinzaB",
+					"parent": "PinzaD",
+					"pivot": [4.25, 15.5, 1.5],
+					"cubes": [
+						{"origin": [1.75, 8, -0.5], "size": [5, 8.5, 4.5], "inflate": -1, "uv": [44, 7]}
+					]
+				},
+				{
+					"name": "BrazoI",
+					"parent": "Brazos",
+					"pivot": [-4.375, 23, 1.25],
+					"cubes": [
+						{"origin": [-7.5, 14, -0.75], "size": [4.5, 10, 4.5], "inflate": -1, "uv": [0, 39]}
+					]
+				},
+				{
+					"name": "PinzaI",
+					"parent": "BrazoI",
+					"pivot": [-5.25, 15.5, 1.5]
+				},
+				{
+					"name": "PinzaA2",
+					"parent": "PinzaI",
+					"pivot": [-5.25, 15.25, 1.85],
+					"cubes": [
+						{"origin": [-7.75, 8, -1.15], "size": [5, 8.5, 4.5], "inflate": -1, "uv": [43, 19]}
+					]
+				},
+				{
+					"name": "PinzaB2",
+					"parent": "PinzaI",
+					"pivot": [-5.25, 15.25, 1.85],
+					"cubes": [
+						{"origin": [-7.75, 8, -0.5], "size": [5, 8.5, 4.5], "inflate": -1, "uv": [44, 7]}
+					]
+				},
+				{
+					"name": "Piernas",
+					"parent": "CuerpoCompleto",
+					"pivot": [-0.5, 12, 0]
+				},
+				{
+					"name": "PiernaD",
+					"parent": "Piernas",
+					"pivot": [1.5, 12.125, 1.5],
+					"cubes": [
+						{"origin": [0, 0.25, 0], "size": [3, 11.75, 3], "uv": [22, 32]}
+					]
+				},
+				{
+					"name": "PiernaI",
+					"parent": "Piernas",
+					"pivot": [-2.5, 12.125, 1.5],
+					"cubes": [
+						{"origin": [-4, 0.25, 0], "size": [3, 11.75, 3], "pivot": [-2.5, 8, 1.5], "rotation": [0, 180, 0], "uv": [22, 32]}
+					]
+				}
+			]
+		}
+	]
+}

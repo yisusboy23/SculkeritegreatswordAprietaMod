@@ -63,6 +63,8 @@ public class Moditems {
             ITEMS.register("bullsquama_egg",
                     () -> new BlockItem(ModBlocks.BULLSQUAMA_EGG.get(),
                             new Item.Properties()));
+    public static final RegistryObject<Item> GOLDEN_MANDRAKE = ITEMS.register("golden_mandrake",
+            () -> new GoldenMandrakeItem(new Item.Properties().rarity(Rarity.RARE)));
 
     // SPAWN EGGS CON TEXTURA PERSONALIZADA - PASAR RegistryObject SIN .get()
 // SPAWN EGGS CON TEXTURA PERSONALIZADA

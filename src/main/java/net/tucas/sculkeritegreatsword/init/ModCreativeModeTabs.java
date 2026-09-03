@@ -34,6 +34,8 @@ public class ModCreativeModeTabs {
                         output.accept(Moditems.PAXEL.get());
                         output.accept(Moditems.DRAGON_PAXEL.get());
                         output.accept(Moditems.TERSECTACT.get());
+                        output.accept(Moditems.MANDRAKE_ROOT.get());
+                        output.accept(Moditems.GOLDEN_MANDRAKE.get());
                         // Bloques
                         output.accept(Moditems.GEAR_COPPER_BLOCK.get());
                         output.accept(Moditems.KRILLATHAN_EGG.get());
@@ -45,7 +47,6 @@ public class ModCreativeModeTabs {
                         output.accept(Moditems.KELP_ON_A_STICK.get());
                         output.accept(Moditems.DRILLER_CLAW.get());
                         output.accept(Moditems.PEEKER_FETUS.get());
-                        output.accept(Moditems.MANDRAKE_ROOT.get());
                         output.accept(Moditems.SPORES_SHROOMERS.get());
                         // Spawn Eggs
                         output.accept(Moditems.MUSHROOM_SERVANT_SPAWN_EGG.get());

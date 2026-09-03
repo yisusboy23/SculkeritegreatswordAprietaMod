@@ -25,6 +25,8 @@ import net.tucas.sculkeritegreatsword.entity.custom.PeekerEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.MandrakeEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.tucas.sculkeritegreatsword.entity.custom.SporesShroomersEntity;
+import net.tucas.sculkeritegreatsword.entity.custom.ForgottenToyEntity;
+import net.tucas.sculkeritegreatsword.entity.custom.ForgottenDroneEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -182,7 +184,26 @@ public class ModEntities {
                             .sized(0.25F, 0.25F)
                             .clientTrackingRange(4)
                             .updateInterval(10)
-                            .build("spores_shroomers"));
+                            .build("spores_shroomers")
+            );
+
+
+    public static final RegistryObject<EntityType<ForgottenToyEntity>> FORGOTTEN_TOY = ENTITIES.register(
+            "forgotten_toy",
+            () -> EntityType.Builder
+                    .<ForgottenToyEntity>of(ForgottenToyEntity::new, MobCategory.MONSTER)
+                    .sized(0.6f, 0.7f)
+                    .build("forgotten_toy")
+    );
+
+    public static final RegistryObject<EntityType<ForgottenDroneEntity>> FORGOTTEN_DRONE = ENTITIES.register(
+            "forgotten_drone",
+            () -> EntityType.Builder
+                    .<ForgottenDroneEntity>of(ForgottenDroneEntity::new, MobCategory.MONSTER)
+                    .sized(0.6f, 1.95f) // ajusta al tamaño real de tu modelo (por defecto tamaño zombie)
+                    .build("forgotten_drone")
+    );
+
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(SCULK_GOLEM.get(), SculkGolemEntity.createAttributes().build());
@@ -202,7 +223,8 @@ public class ModEntities {
         event.put(MUDDER.get(), MudderEntity.createAttributes().build());
         event.put(PEEKER.get(), PeekerEntity.createAttributes().build());
         event.put(MANDRAKE.get(), MandrakeEntity.setAttributes());
-
+        event.put(FORGOTTEN_TOY.get(), ForgottenToyEntity.createAttributes().build());
+        event.put(FORGOTTEN_DRONE.get(), ForgottenDroneEntity.createAttributes().build());
     }
     private static <T extends net.minecraft.world.entity.Entity> RegistryObject<EntityType<T>> register(
             String registryname,
