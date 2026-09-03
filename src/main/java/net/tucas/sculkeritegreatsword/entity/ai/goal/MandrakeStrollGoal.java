@@ -1,6 +1,7 @@
-package net.tucas.sculkeritegreatsword.entity.custom;
+package net.tucas.sculkeritegreatsword.entity.ai.goal;
 
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.tucas.sculkeritegreatsword.entity.custom.MandrakeEntity;
 
 public class MandrakeStrollGoal extends WaterAvoidingRandomStrollGoal {
 

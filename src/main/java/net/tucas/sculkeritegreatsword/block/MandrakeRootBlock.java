@@ -2,16 +2,12 @@ package net.tucas.sculkeritegreatsword.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -20,7 +16,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.tucas.sculkeritegreatsword.entity.custom.MandrakeEntity;
 import net.tucas.sculkeritegreatsword.init.ModEntities;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,18 +45,15 @@ public class MandrakeRootBlock extends BushBlock {
         return Collections.emptyList();
     }
 
-    // Rotura por jugador (mano o herramienta): spawnea el mob
+    // Rotura por jugador: no spawnea aquí, lo hace onRemove (evita duplicados)
     @Override
     public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         super.playerWillDestroy(level, pos, state, player);
-        spawnMandrake(level, pos);
     }
 
-    // Rotura por cualquier otra causa (explosión, pistón, fuego, etc.): también spawnea el mob
+    // Único punto de spawn: cubre jugador, explosión, pistón, fuego, etc.
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        // Evita duplicar el spawn si ya lo hizo playerWillDestroy en el mismo tick,
-        // comparando si el bloque realmente desapareció (no solo cambió de estado)
         if (!state.is(newState.getBlock()) && !level.isClientSide) {
             spawnMandrake(level, pos);
         }

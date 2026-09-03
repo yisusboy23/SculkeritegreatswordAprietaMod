@@ -28,6 +28,8 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.tucas.sculkeritegreatsword.Sculkeritegreatsword;
+import net.tucas.sculkeritegreatsword.entity.ai.goal.PeekerAvoidPlayerGoal;
+import net.tucas.sculkeritegreatsword.entity.ai.goal.PeekerConstants;
 import net.tucas.sculkeritegreatsword.init.ModEntities;         // <-- ajusta al nombre real
 import software.bernie.geckolib.animatable.GeoEntity;
 import net.minecraft.core.BlockPos;

@@ -1,4 +1,4 @@
-package net.tucas.sculkeritegreatsword.entity.custom;
+package net.tucas.sculkeritegreatsword.entity.ai.goal;
 
 /**
  * Todos los valores ajustables del Peeker en un solo sitio.

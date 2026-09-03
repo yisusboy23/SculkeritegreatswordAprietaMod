@@ -1,8 +1,8 @@
-package net.tucas.sculkeritegreatsword.entity.custom;
+package net.tucas.sculkeritegreatsword.entity.ai.goal;
 
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.player.Player;
+import net.tucas.sculkeritegreatsword.entity.custom.PeekerEntity;
 
 /**
  * Igual que AvoidEntityGoal, pero deja de aplicar en cuanto el Peeker es domesticado.

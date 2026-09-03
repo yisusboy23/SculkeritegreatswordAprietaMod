@@ -26,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+import net.tucas.sculkeritegreatsword.entity.ai.goal.MandrakeStrollGoal;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
@@ -44,6 +45,7 @@ import net.tucas.sculkeritegreatsword.init.ModMobEffects;
 import net.tucas.sculkeritegreatsword.potion.MandrakeSongEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
 
 public class MandrakeEntity extends PathfinderMob implements GeoEntity {
     public int cooldown = 0;
@@ -249,5 +251,10 @@ public class MandrakeEntity extends PathfinderMob implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
+    }
+    @Override
+    protected void dropCustomDeathLoot(DamageSource damageSource, int lootingLevel, boolean hitByPlayer) {
+        super.dropCustomDeathLoot(damageSource, lootingLevel, hitByPlayer);
+        this.spawnAtLocation(new ItemStack(Moditems.MANDRAKE_ROOT.get()));
     }
 }

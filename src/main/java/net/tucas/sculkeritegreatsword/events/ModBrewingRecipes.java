@@ -17,7 +17,7 @@ public class ModBrewingRecipes {
             // Poción Incómoda + Mandrake Root Plant -> Poción del Canto de Mandrágora
             BrewingRecipeRegistry.addRecipe(
                     Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.AWKWARD)),
-                    Ingredient.of(Moditems.MANDRAKE_ROOT_PLANT.get()),
+                    Ingredient.of(Moditems.MANDRAKE_ROOT.get()),
                     PotionUtils.setPotion(new ItemStack(Items.POTION), ModPotions.MANDRAKE_SONG.get())
             );
 
