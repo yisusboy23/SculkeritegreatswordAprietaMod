@@ -2,22 +2,24 @@ package net.tucas.sculkeritegreatsword.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BrushItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.tucas.sculkeritegreatsword.entity.custom.MandrakeEntity;
 import net.tucas.sculkeritegreatsword.init.ModEntities;
-
-import java.util.Collections;
-import java.util.List;
+import net.tucas.sculkeritegreatsword.item.Moditems;
 
 public class MandrakeRootBlock extends BushBlock {
 
@@ -39,34 +41,31 @@ public class MandrakeRootBlock extends BushBlock {
                 || block == Blocks.MOSS_BLOCK || block == Blocks.PODZOL;
     }
 
-    // Nunca suelta el ítem, sin importar cómo se rompa (mano, herramienta, encantamiento de fortuna, etc.)
+    // Interacción con Brocha: Cosecha la raíz limpiamente
     @Override
-    public List<net.minecraft.world.item.ItemStack> getDrops(BlockState state, LootParams.Builder params) {
-        return Collections.emptyList();
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (player.getItemInHand(hand).getItem() instanceof BrushItem) {
+            if (!level.isClientSide) {
+                popResource(level, pos, new ItemStack(Moditems.MANDRAKE_ROOT.get()));
+                level.destroyBlock(pos, false);
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+        return super.use(state, level, pos, player, hand, hit);
     }
 
-    // Rotura por jugador: no spawnea aquí, lo hace onRemove (evita duplicados)
+    // Romper con la mano/herramienta: Spawnea la entidad (excepto si fue con brocha)
     @Override
     public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        super.playerWillDestroy(level, pos, state, player);
-    }
-
-    // Único punto de spawn: cubre jugador, explosión, pistón, fuego, etc.
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock()) && !level.isClientSide) {
-            spawnMandrake(level, pos);
-        }
-        super.onRemove(state, level, pos, newState, isMoving);
-    }
-
-    private void spawnMandrake(Level level, BlockPos pos) {
-        if (level instanceof ServerLevel serverLevel) {
-            MandrakeEntity mandrake = ModEntities.MANDRAKE.get().create(serverLevel);
-            if (mandrake != null) {
-                mandrake.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
-                serverLevel.addFreshEntity(mandrake);
+        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+            if (!(player.getMainHandItem().getItem() instanceof BrushItem)) {
+                MandrakeEntity mandrake = ModEntities.MANDRAKE.get().create(serverLevel);
+                if (mandrake != null) {
+                    mandrake.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+                    serverLevel.addFreshEntity(mandrake);
+                }
             }
         }
+        super.playerWillDestroy(level, pos, state, player);
     }
 }

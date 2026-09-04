@@ -27,6 +27,7 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.tucas.sculkeritegreatsword.entity.custom.SporesShroomersEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.ForgottenToyEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.ForgottenDroneEntity;
+import net.tucas.sculkeritegreatsword.entity.custom.ResonarchEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -204,6 +205,14 @@ public class ModEntities {
                     .build("forgotten_drone")
     );
 
+    public static final RegistryObject<EntityType<ResonarchEntity>> RESONARCH = ENTITIES.register(
+            "resonarch",
+            () -> EntityType.Builder
+                    .<ResonarchEntity>of(ResonarchEntity::new, MobCategory.MONSTER)
+                    .sized(1.2f, 1.8f)
+                    .build("resonarch")
+    );
+
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(SCULK_GOLEM.get(), SculkGolemEntity.createAttributes().build());
@@ -225,6 +234,7 @@ public class ModEntities {
         event.put(MANDRAKE.get(), MandrakeEntity.setAttributes());
         event.put(FORGOTTEN_TOY.get(), ForgottenToyEntity.createAttributes().build());
         event.put(FORGOTTEN_DRONE.get(), ForgottenDroneEntity.createAttributes().build());
+        event.put(RESONARCH.get(), ResonarchEntity.createAttributes().build());
     }
     private static <T extends net.minecraft.world.entity.Entity> RegistryObject<EntityType<T>> register(
             String registryname,

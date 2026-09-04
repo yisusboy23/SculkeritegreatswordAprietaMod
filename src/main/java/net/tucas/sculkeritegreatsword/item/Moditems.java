@@ -1,17 +1,16 @@
 package net.tucas.sculkeritegreatsword.item;
 
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.Tiers;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.tucas.sculkeritegreatsword.Sculkeritegreatsword;
-import net.tucas.sculkeritegreatsword.init.ModEntities;
-import net.minecraft.world.item.BlockItem;
 import net.tucas.sculkeritegreatsword.init.ModBlocks;
-import net.tucas.sculkeritegreatsword.item.SporesShroomersItem;
-import net.minecraft.world.item.Tiers;
+import net.tucas.sculkeritegreatsword.init.ModEntities;
 
 public class Moditems {
 
@@ -52,22 +51,29 @@ public class Moditems {
             ITEMS.register("baby_krillathan_bucket",
                     () -> new BabyKrillathanBucketItem(
                             new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> KELP_ON_A_STICK = ITEMS.register("kelp_on_a_stick",
             () -> new Item(new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> SPORES_SHROOMERS = ITEMS.register("spores_shroomers",
             () -> new SporesShroomersItem(new Item.Properties().stacksTo(16)));
 
     public static final RegistryObject<Item> DRILLER_EGG = ITEMS.register("driller_egg",
             () -> new BlockItem(ModBlocks.DRILLER_EGG.get(), new Item.Properties()));
+
     public static final RegistryObject<Item> BULLSQUAMA_EGG =
             ITEMS.register("bullsquama_egg",
                     () -> new BlockItem(ModBlocks.BULLSQUAMA_EGG.get(),
                             new Item.Properties()));
+
+    // MANDRÁGORAS
+    public static final RegistryObject<Item> MANDRAKE_ROOT = ITEMS.register("mandrake_root",
+            () -> new MandrakeRoot(ModBlocks.MANDRAKE_ROOT_BLOCK.get(), new Item.Properties().rarity(Rarity.UNCOMMON)));
+
     public static final RegistryObject<Item> GOLDEN_MANDRAKE = ITEMS.register("golden_mandrake",
             () -> new GoldenMandrakeItem(new Item.Properties().rarity(Rarity.RARE)));
 
-    // SPAWN EGGS CON TEXTURA PERSONALIZADA - PASAR RegistryObject SIN .get()
-// SPAWN EGGS CON TEXTURA PERSONALIZADA
+    // SPAWN EGGS
     public static final RegistryObject<Item> SCULK_GOLEM_SPAWN_EGG =
             ITEMS.register("sculk_golem_spawn_egg",
                     () -> new CustomSpawnEggItem(
@@ -177,16 +183,14 @@ public class Moditems {
             ITEMS.register("mudder_bucket",
                     () -> new MudderBucketItem(
                             new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> MUDDER_EGG =
             ITEMS.register("mudder_egg",
                     () -> new BlockItem(ModBlocks.MUDDER_EGG.get(), new Item.Properties()));
+
     public static final RegistryObject<Item> PEEKER_FETUS =
             ITEMS.register("peeker_fetus",
                     () -> new BlockItem(ModBlocks.PEEKER_FETUS.get(), new Item.Properties()));
-    public static final RegistryObject<Item> MANDRAKE_ROOT = ITEMS.register("mandrake_root",
-            () -> new MandrakeRoot(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> MANDRAKE_ROOT_PLANT = ITEMS.register("mandrake_root_plant",
-            () -> new BlockItem(ModBlocks.MANDRAKE_ROOT_BLOCK.get(), new Item.Properties()));
 
     public static final RegistryObject<Item> GEAR_COPPER_BLOCK = ITEMS.register("gear_copper_block",
             () -> new BlockItem(ModBlocks.GEAR_COPPER_BLOCK.get(), new Item.Properties()));
