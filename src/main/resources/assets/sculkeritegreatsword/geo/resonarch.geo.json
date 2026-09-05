@@ -14,7 +14,10 @@
 				{
 					"name": "Cuerpo_Completo",
 					"pivot": [1, 7, -3],
-					"rotation": [0, 90, 0]
+					"rotation": [0, 90, 0],
+					"locators": {
+						"piso": [-2, 0, -4]
+					}
 				},
 				{
 					"name": "Cabeza",

@@ -15,8 +15,17 @@ public class ResonarchProjectileEvents {
     public static void onProjectileImpact(ProjectileImpactEvent event) {
         if (!(event.getRayTraceResult() instanceof EntityHitResult hit)) return;
         if (!(hit.getEntity() instanceof ResonarchEntity resonarch)) return;
+        if (resonarch.level().isClientSide) return;
 
         Projectile projectile = event.getProjectile();
+
+        if (!resonarch.willCatchProjectile()) {
+            // El escudo no está atrapando ahora mismo (p. ej. STATE_REFLECT ya en
+            // curso): dejamos que el golpe siga su curso normal, sin cancelar,
+            // para que llegue a hurt() y haga daño de verdad.
+            return;
+        }
+
         resonarch.onProjectileImpact(projectile);
 
         // Cancela el impacto/daño vanilla: la física del proyectil
