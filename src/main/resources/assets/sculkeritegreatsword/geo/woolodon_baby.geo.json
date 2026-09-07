@@ -1,0 +1,181 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "CuerpoCompleto",
+					"pivot": [0, 6, -7]
+				},
+				{
+					"name": "Pecho",
+					"parent": "CuerpoCompleto",
+					"pivot": [1.02495, 2.71669, 2.79167],
+					"cubes": [
+						{"origin": [-2.5, 1, -4], "size": [7, 6, 8], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Cabeza",
+					"parent": "Pecho",
+					"pivot": [1, 7.08333, -1.91667],
+					"cubes": [
+						{"origin": [-2, 6, -8], "size": [6, 5, 6], "uv": [0, 26]}
+					]
+				},
+				{
+					"name": "Nariz",
+					"parent": "Cabeza",
+					"pivot": [1, 10, -8],
+					"cubes": [
+						{"origin": [-0.5, 5, -10], "size": [3, 5, 2], "uv": [34, 24]}
+					]
+				},
+				{
+					"name": "Orejas",
+					"parent": "Cabeza",
+					"pivot": [1, 6, -9]
+				},
+				{
+					"name": "OrejaI",
+					"parent": "Orejas",
+					"pivot": [-2.0005, 11, -4.5],
+					"cubes": [
+						{
+							"origin": [-2.001, 11, -6],
+							"size": [0.001, 4, 3],
+							"uv": {
+								"north": {"uv": [41, 17], "uv_size": [0, 4]},
+								"east": {"uv": [41, 17], "uv_size": [3, 4]},
+								"south": {"uv": [44, 17], "uv_size": [0, 4]},
+								"west": {"uv": [38, 17], "uv_size": [3, 4]},
+								"up": {"uv": [41, 14], "uv_size": [0, 3]},
+								"down": {"uv": [41, 17], "uv_size": [0, -3]}
+							}
+						}
+					]
+				},
+				{
+					"name": "OrejaD",
+					"parent": "Orejas",
+					"pivot": [3.9995, 11, -4.5],
+					"cubes": [
+						{"origin": [3.999, 11, -6], "size": [0.001, 4, 3], "uv": [38, 14]}
+					]
+				},
+				{
+					"name": "Pelo",
+					"parent": "Cabeza",
+					"pivot": [0.64609, 11, -5.06101],
+					"cubes": [
+						{"origin": [-0.001, 11, -7], "size": [0.001, 5, 5], "pivot": [1, 11, -4], "rotation": [0, -45, 0], "uv": [24, 28]}
+					]
+				},
+				{
+					"name": "PiernasA",
+					"parent": "Pecho",
+					"pivot": [1, 4, -3]
+				},
+				{
+					"name": "PiernaD2",
+					"parent": "PiernasA",
+					"pivot": [4.5, 4, -3.5],
+					"cubes": [
+						{"origin": [3.75, 0, -5], "size": [2, 4, 3], "uv": [30, 0]}
+					]
+				},
+				{
+					"name": "PiernaI2",
+					"parent": "PiernasA",
+					"pivot": [-2.25, 4, -3.5],
+					"cubes": [
+						{
+							"origin": [-3.25, 0, -5],
+							"size": [2, 4, 3],
+							"uv": {
+								"north": {"uv": [35, 3], "uv_size": [-2, 4]},
+								"east": {"uv": [35, 3], "uv_size": [3, 4]},
+								"south": {"uv": [38, 3], "uv_size": [2, 4]},
+								"west": {"uv": [33, 3], "uv_size": [-3, 4]},
+								"up": {"uv": [33, 0], "uv_size": [2, 3]},
+								"down": {"uv": [35, 3], "uv_size": [2, -3]}
+							}
+						}
+					]
+				},
+				{
+					"name": "Cola",
+					"parent": "Pecho",
+					"pivot": [1.12475, 6.50013, 3.875],
+					"cubes": [
+						{"origin": [-2, 4, 4], "size": [6, 4, 8], "uv": [0, 14]}
+					]
+				},
+				{
+					"name": "PeloA",
+					"parent": "Cola",
+					"pivot": [-0.0005, 8, 9.5],
+					"cubes": [
+						{"origin": [-0.001, 8, 7], "size": [0.001, 5, 5], "uv": [28, 14]}
+					]
+				},
+				{
+					"name": "PeloB",
+					"parent": "Cola",
+					"pivot": [4, 6.0005, 7.5],
+					"cubes": [
+						{"origin": [3.9995, 6.0005, 6], "size": [0.001, 5, 3], "pivot": [4, 6.0005, 7.5], "rotation": [0, 0, 90], "uv": [16, 37]}
+					]
+				},
+				{
+					"name": "PeloP",
+					"parent": "Pecho",
+					"pivot": [1, 7, 0],
+					"cubes": [
+						{"origin": [0.999, 7, -1], "size": [0.001, 5, 3], "uv": [10, 37]}
+					]
+				},
+				{
+					"name": "PiernasB",
+					"parent": "CuerpoCompleto",
+					"pivot": [1, 2.5, 3]
+				},
+				{
+					"name": "PiernaI",
+					"parent": "PiernasB",
+					"pivot": [-2.5, 3, 3.5],
+					"cubes": [
+						{"origin": [-3.25, 0, 2], "size": [2, 3, 3], "uv": [34, 31]}
+					]
+				},
+				{
+					"name": "PiernaD",
+					"parent": "PiernasB",
+					"pivot": [4.5, 3, 3.5],
+					"cubes": [
+						{
+							"origin": [3.75, 0, 2],
+							"size": [2, 3, 3],
+							"uv": {
+								"north": {"uv": [39, 34], "uv_size": [-2, 3]},
+								"east": {"uv": [34, 34], "uv_size": [3, 3]},
+								"south": {"uv": [42, 34], "uv_size": [2, 3]},
+								"west": {"uv": [39, 34], "uv_size": [3, 3]},
+								"up": {"uv": [37, 31], "uv_size": [2, 3]},
+								"down": {"uv": [39, 34], "uv_size": [2, -3]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

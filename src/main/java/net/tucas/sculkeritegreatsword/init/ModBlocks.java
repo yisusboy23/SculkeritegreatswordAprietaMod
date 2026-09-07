@@ -11,6 +11,7 @@ import net.tucas.sculkeritegreatsword.Sculkeritegreatsword;
 import net.tucas.sculkeritegreatsword.block.KrillathanEggBlock;
 import net.tucas.sculkeritegreatsword.block.DrillerEggBlock;
 import net.tucas.sculkeritegreatsword.block.BullsquamaEggBlock;
+import net.tucas.sculkeritegreatsword.block.TallWoolodonEggBlock;
 import net.tucas.sculkeritegreatsword.block.MudderEggBlock;
 import net.tucas.sculkeritegreatsword.block.MandrakeRootBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -51,6 +52,13 @@ public class ModBlocks {
     public static final RegistryObject<Block> MUDDER_EGG =
             BLOCKS.register("mudder_egg",
                     () -> new MudderEggBlock(BlockBehaviour.Properties.of()
+                            .strength(0.5F)
+                            .sound(SoundType.BONE_BLOCK)
+                            .noOcclusion()));
+
+    public static final RegistryObject<Block> WOOLODON_EGG =
+            BLOCKS.register("brachiosaurus_egg",
+                    () -> new TallWoolodonEggBlock(BlockBehaviour.Properties.of()
                             .strength(0.5F)
                             .sound(SoundType.BONE_BLOCK)
                             .noOcclusion()));

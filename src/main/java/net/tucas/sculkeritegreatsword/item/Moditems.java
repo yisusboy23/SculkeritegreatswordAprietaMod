@@ -66,6 +66,10 @@ public class Moditems {
                     () -> new BlockItem(ModBlocks.BULLSQUAMA_EGG.get(),
                             new Item.Properties()));
 
+    public static final RegistryObject<Item> WOOLODON_EGG =
+            ITEMS.register("brachiosaurus_egg",
+                    () -> new BlockItem(ModBlocks.WOOLODON_EGG.get(), new Item.Properties()));
+
     // MANDRÁGORAS
     public static final RegistryObject<Item> MANDRAKE_ROOT = ITEMS.register("mandrake_root",
             () -> new MandrakeRoot(ModBlocks.MANDRAKE_ROOT_BLOCK.get(), new Item.Properties().rarity(Rarity.UNCOMMON)));

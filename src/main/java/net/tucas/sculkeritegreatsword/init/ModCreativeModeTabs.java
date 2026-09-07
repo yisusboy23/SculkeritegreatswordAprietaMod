@@ -42,6 +42,7 @@ public class ModCreativeModeTabs {
                         output.accept(Moditems.BULLSQUAMA_EGG.get());
                         output.accept(Moditems.DRILLER_EGG.get());
                         output.accept(Moditems.MUDDER_EGG.get());
+                        output.accept(Moditems.WOOLODON_EGG.get());
                         output.accept(Moditems.BABY_KRILLATHAN_BUCKET.get());
                         output.accept(Moditems.MUDDER_BUCKET.get());
                         output.accept(Moditems.KELP_ON_A_STICK.get());

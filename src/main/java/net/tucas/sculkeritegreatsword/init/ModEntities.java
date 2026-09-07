@@ -23,6 +23,7 @@ import net.tucas.sculkeritegreatsword.entity.custom.BullsquamaEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.MudderEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.PeekerEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.MandrakeEntity;
+import net.tucas.sculkeritegreatsword.entity.custom.WoolodonEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.tucas.sculkeritegreatsword.entity.custom.SporesShroomersEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.ForgottenToyEntity;
@@ -213,6 +214,14 @@ public class ModEntities {
                     .build("resonarch")
     );
 
+    public static final RegistryObject<EntityType<WoolodonEntity>> WOOLODON = ENTITIES.register(
+            "woolodon",
+            () -> EntityType.Builder
+                    .<WoolodonEntity>of(WoolodonEntity::new, MobCategory.CREATURE)
+                    .sized(1.6f, 3.8f) // ajusta al tamaño real de tu modelo
+                    .build("woolodon")
+    );
+
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(SCULK_GOLEM.get(), SculkGolemEntity.createAttributes().build());
@@ -235,6 +244,7 @@ public class ModEntities {
         event.put(FORGOTTEN_TOY.get(), ForgottenToyEntity.createAttributes().build());
         event.put(FORGOTTEN_DRONE.get(), ForgottenDroneEntity.createAttributes().build());
         event.put(RESONARCH.get(), ResonarchEntity.createAttributes().build());
+        event.put(WOOLODON.get(), WoolodonEntity.createAttributes().build());
     }
     private static <T extends net.minecraft.world.entity.Entity> RegistryObject<EntityType<T>> register(
             String registryname,
@@ -246,4 +256,5 @@ public class ModEntities {
     public static void register(net.minecraftforge.eventbus.api.IEventBus eventBus) {
         ENTITIES.register(eventBus);
     }
+
 }
