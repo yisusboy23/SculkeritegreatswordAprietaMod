@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "sculkeritegreatsword:item/forgotten_toy_spawn_egg"
+  }
+}

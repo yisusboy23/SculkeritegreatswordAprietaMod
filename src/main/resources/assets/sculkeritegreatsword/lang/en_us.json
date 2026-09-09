@@ -76,5 +76,13 @@
   "item.minecraft.tipped_arrow.effect.mandrake_song": "Arrow of Shriek",
   "effect.sculkeritegreatsword.mandrake_song": "Shriek",
   "item.sculkeritegreatsword.spores_shroomers": "Spores Shroomers",
-  "entity.sculkeritegreatsword.spores_shroomers": "Spores Shroomers"
+  "entity.sculkeritegreatsword.spores_shroomers": "Spores Shroomers",
+  "item.sculkeritegreatsword.forgotten_drone_spawn_egg": "Forgotten Drone Spawn Egg",
+  "item.sculkeritegreatsword.forgotten_toy_spawn_egg": "Forgotten Toy Spawn Egg",
+  "item.sculkeritegreatsword.resonarch_spawn_egg": "Resonarch Spawn Egg",
+  "item.sculkeritegreatsword.woolodon_spawn_egg": "Woolodon Spawn Egg",
+  "entity.sculkeritegreatsword.forgotten_drone": "Forgotten Drone",
+  "entity.sculkeritegreatsword.forgotten_toy": "Forgotten Toy",
+  "entity.sculkeritegreatsword.resonarch": "Resonarch",
+  "entity.sculkeritegreatsword.woolodon": "Woolodon"
 }

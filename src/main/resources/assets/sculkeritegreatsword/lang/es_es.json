@@ -76,5 +76,11 @@
   "item.minecraft.tipped_arrow.effect.mandrake_song": "Flecha de Alarido",
   "effect.sculkeritegreatsword.mandrake_song": "Alarido",
   "item.sculkeritegreatsword.spores_shroomers": "Esporas de Shroomers",
-  "entity.sculkeritegreatsword.spores_shroomers": "Esporas de Shroomers"
+  "entity.sculkeritegreatsword.spores_shroomers": "Esporas de Shroomers",
+  "entity.sculkeritegreatsword.forgotten_drone": "Dron Olvidado",
+  "item.sculkeritegreatsword.forgotten_drone_spawn_egg": "Generador de Dron Olvidado",
+  "entity.sculkeritegreatsword.forgotten_toy": "Juguete Olvidado",
+  "item.sculkeritegreatsword.forgotten_toy_spawn_egg": "Generador de Juguete Olvidado",
+  "entity.sculkeritegreatsword.resonarch": "Resonarca",
+  "item.sculkeritegreatsword.resonarch_spawn_egg": "Generador de Resonarca"
 }

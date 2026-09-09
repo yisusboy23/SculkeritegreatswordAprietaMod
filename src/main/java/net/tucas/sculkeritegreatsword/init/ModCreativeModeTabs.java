@@ -60,11 +60,16 @@ public class ModCreativeModeTabs {
                         output.accept(Moditems.CHORUS_GOLEM_SPAWN_EGG.get());
                         output.accept(Moditems.HYDRANTOR_GOLEM_SPAWN_EGG.get());
                         output.accept(Moditems.DRILLER_SPAWN_EGG.get());
-                        output.accept(Moditems.KRILLATHAN_SPAWN_EGG.get());
+                        output.accept(Moditems.WOOLODON_SPAWN_EGG.get());
                         output.accept(Moditems.BULLSQUAMA_SPAWN_EGG.get());
                         output.accept(Moditems.MUDDER_SPAWN_EGG.get());
+                        output.accept(Moditems.KRILLATHAN_SPAWN_EGG.get());
                         output.accept(Moditems.PEEKER_SPAWN_EGG.get());
                         output.accept(Moditems.MANDRAKE_SPAWN_EGG.get());
+                        output.accept(Moditems.FORGOTTEN_DRONE_SPAWN_EGG.get());
+                        output.accept(Moditems.FORGOTTEN_TOY_SPAWN_EGG.get());
+                        output.accept(Moditems.RESONARCH_SPAWN_EGG.get());
+
                         // Libro 1 - Fast Recharge
                         ItemStack fastRechargeBook = new ItemStack(Items.ENCHANTED_BOOK);
                         ListTag enchantments1 = new ListTag();

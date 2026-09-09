@@ -183,6 +183,35 @@ public class Moditems {
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
+    // NUEVOS SPAWN EGGS
+    public static final RegistryObject<Item> FORGOTTEN_DRONE_SPAWN_EGG =
+            ITEMS.register("forgotten_drone_spawn_egg",
+                    () -> new CustomSpawnEggItem(
+                            ModEntities.FORGOTTEN_DRONE,
+                            new Item.Properties().rarity(Rarity.UNCOMMON)
+                    ));
+
+    public static final RegistryObject<Item> FORGOTTEN_TOY_SPAWN_EGG =
+            ITEMS.register("forgotten_toy_spawn_egg",
+                    () -> new CustomSpawnEggItem(
+                            ModEntities.FORGOTTEN_TOY,
+                            new Item.Properties().rarity(Rarity.UNCOMMON)
+                    ));
+
+    public static final RegistryObject<Item> RESONARCH_SPAWN_EGG =
+            ITEMS.register("resonarch_spawn_egg",
+                    () -> new CustomSpawnEggItem(
+                            ModEntities.RESONARCH,
+                            new Item.Properties().rarity(Rarity.RARE)
+                    ));
+
+    public static final RegistryObject<Item> WOOLODON_SPAWN_EGG =
+            ITEMS.register("woolodon_spawn_egg",
+                    () -> new CustomSpawnEggItem(
+                            ModEntities.WOOLODON,
+                            new Item.Properties().rarity(Rarity.UNCOMMON)
+                    ));
+
     public static final RegistryObject<Item> MUDDER_BUCKET =
             ITEMS.register("mudder_bucket",
                     () -> new MudderBucketItem(
