@@ -31,6 +31,7 @@ import net.tucas.sculkeritegreatsword.client.renderer.ForgottenToyRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.ForgottenDroneRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.ResonarchRenderer;
 import net.tucas.sculkeritegreatsword.client.renderer.WoolodonRenderer;
+import net.tucas.sculkeritegreatsword.client.renderer.ForgottenConstructRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 @Mod.EventBusSubscriber(modid = Sculkeritegreatsword.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -61,6 +62,7 @@ public class ClientModEvents {
         event.registerEntityRenderer(ModEntities.FORGOTTEN_DRONE.get(), ForgottenDroneRenderer::new);
         event.registerEntityRenderer(ModEntities.RESONARCH.get(), ResonarchRenderer::new);
         event.registerEntityRenderer(ModEntities.WOOLODON.get(), WoolodonRenderer::new);
+        event.registerEntityRenderer(ModEntities.FORGOTTEN_CONSTRUCT.get(), ForgottenConstructRenderer::new);
     }
 
     @SubscribeEvent

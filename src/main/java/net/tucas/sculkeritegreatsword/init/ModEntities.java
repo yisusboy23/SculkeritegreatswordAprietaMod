@@ -28,6 +28,7 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.tucas.sculkeritegreatsword.entity.custom.SporesShroomersEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.ForgottenToyEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.ForgottenDroneEntity;
+import net.tucas.sculkeritegreatsword.entity.custom.ForgottenConstructEntity;
 import net.tucas.sculkeritegreatsword.entity.custom.ResonarchEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -222,6 +223,14 @@ public class ModEntities {
                     .build("woolodon")
     );
 
+    public static final RegistryObject<EntityType<ForgottenConstructEntity>> FORGOTTEN_CONSTRUCT = ENTITIES.register(
+            "forgotten_construct",
+            () -> EntityType.Builder
+                    .<ForgottenConstructEntity>of(ForgottenConstructEntity::new, MobCategory.MONSTER)
+                    .sized(1.5f, 3.2f)
+                    .build("forgotten_construct")
+    );
+
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(SCULK_GOLEM.get(), SculkGolemEntity.createAttributes().build());
@@ -243,6 +252,7 @@ public class ModEntities {
         event.put(MANDRAKE.get(), MandrakeEntity.setAttributes());
         event.put(FORGOTTEN_TOY.get(), ForgottenToyEntity.createAttributes().build());
         event.put(FORGOTTEN_DRONE.get(), ForgottenDroneEntity.createAttributes().build());
+        event.put(FORGOTTEN_CONSTRUCT.get(), ForgottenConstructEntity.createAttributes().build());
         event.put(RESONARCH.get(), ResonarchEntity.createAttributes().build());
         event.put(WOOLODON.get(), WoolodonEntity.createAttributes().build());
     }
