@@ -2,7 +2,8 @@ package net.tucas.sculkeritegreatsword.client.renderer;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.tucas.sculkeritegreatsword.client.renderer.layer.BossGlowLayer; // Import del layer
+import net.tucas.sculkeritegreatsword.client.renderer.layer.BeamLayer;
+import net.tucas.sculkeritegreatsword.client.renderer.layer.BossGlowLayer;
 import net.tucas.sculkeritegreatsword.entity.custom.ForgottenConstructEntity;
 import net.tucas.sculkeritegreatsword.entity.model.ForgottenConstructModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
@@ -15,8 +16,9 @@ public class ForgottenConstructRenderer extends GeoEntityRenderer<ForgottenConst
 
     public ForgottenConstructRenderer(EntityRendererProvider.Context context) {
         super(context, new ForgottenConstructModel());
-        this.shadowRadius = 2.0F;
+        this.shadowRadius = 3.0F;
         addRenderLayer(new BossGlowLayer(this, GLOW, ForgottenConstructEntity::isGlowActive));
         addRenderLayer(new BossGlowLayer(this, OVERPOWER, ForgottenConstructEntity::isOverpowerActive));
+        addRenderLayer(new BeamLayer(this));
     }
 }

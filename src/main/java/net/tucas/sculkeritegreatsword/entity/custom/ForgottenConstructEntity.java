@@ -6,6 +6,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.tucas.sculkeritegreatsword.entity.ai.goal.*;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -46,12 +48,24 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
     public static final float PHASE2_HEALTH_RATIO = 0.30F;
     private static final double PHASE2_SPEED = 1.35D;
 
+    // Locators del .geo.json (unidades de modelo)
+    public static final Vec3 NUCLEO_OFFSET = new Vec3(0.5D, 14.75D, -6.5D);
+    public static final Vec3 CANNON_OFFSET = new Vec3(9.5D, 33.6D, -32.2D);
+    /** Si la bola o el rayo salen del lado contrario, cambia a -1. */
+    private static final double X_SIGN = 1.0D;
+
     private static final EntityDataAccessor<Integer> DATA_STATE =
             SynchedEntityData.defineId(ForgottenConstructEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_AWAKE =
             SynchedEntityData.defineId(ForgottenConstructEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_PHASE2 =
             SynchedEntityData.defineId(ForgottenConstructEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Float> BEAM_YAW =
+            SynchedEntityData.defineId(ForgottenConstructEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> BEAM_PITCH =
+            SynchedEntityData.defineId(ForgottenConstructEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> BEAM_LEN =
+            SynchedEntityData.defineId(ForgottenConstructEntity.class, EntityDataSerializers.FLOAT);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -95,6 +109,9 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
         this.entityData.define(DATA_STATE, BossState.SLEEP.ordinal());
         this.entityData.define(DATA_AWAKE, false);
         this.entityData.define(DATA_PHASE2, false);
+        this.entityData.define(BEAM_YAW, 0.0F);
+        this.entityData.define(BEAM_PITCH, 0.0F);
+        this.entityData.define(BEAM_LEN, 0.0F);
     }
 
     @Override
@@ -118,6 +135,36 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
     public void setAwake(boolean v) { this.entityData.set(DATA_AWAKE, v); }
     public boolean isPhase2() { return this.entityData.get(DATA_PHASE2); }
     public void setPhase2(boolean v) { this.entityData.set(DATA_PHASE2, v); }
+
+    // ------------------------------------------------------------------ RAYO Y LOCATORS
+    public void setBeam(float yaw, float pitch, float len) {
+        entityData.set(BEAM_YAW, yaw);
+        entityData.set(BEAM_PITCH, pitch);
+        entityData.set(BEAM_LEN, len);
+    }
+    public void clearBeam() { entityData.set(BEAM_LEN, 0.0F); }
+    public float getBeamYaw() { return entityData.get(BEAM_YAW); }
+    public float getBeamPitch() { return entityData.get(BEAM_PITCH); }
+    public float getBeamLen() { return entityData.get(BEAM_LEN); }
+    public boolean isBeamActive() { return getBossState() == BossState.BEAM && getBeamLen() > 0.0F; }
+
+    /** Offset de un locator relativo a la posición del jefe, en ejes de mundo. */
+    public Vec3 locatorOffset(Vec3 o, float bodyYawDeg) {
+        float yaw = bodyYawDeg * Mth.DEG_TO_RAD;
+        Vec3 fwd = new Vec3(-Mth.sin(yaw), 0, Mth.cos(yaw));
+        Vec3 right = new Vec3(-Mth.cos(yaw), 0, -Mth.sin(yaw));
+
+        return fwd.scale(-o.z / 16.0D)
+                .add(right.scale(X_SIGN * o.x / 16.0D))
+                .add(0, o.y / 16.0D, 0);
+    }
+
+    /** Posición en el mundo de un locator. */
+    public Vec3 locatorPos(Vec3 o) { return position().add(locatorOffset(o, yHeadRot)); }
+
+    /** Evita que el rayo desaparezca si el jefe sale de pantalla. */
+    @Override
+    public AABB getBoundingBoxForCulling() { return super.getBoundingBoxForCulling().inflate(22.0D); }
 
     // Capas emisivas (las lee el renderer en el cliente)
     public boolean isGlowActive() { return isAwake() && getBossState() != BossState.DAZED; }
@@ -197,6 +244,7 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
     }
 
     public void enterDazed() {
+        clearBeam();
         setBossState(BossState.DAZED);
         playSound(SoundEvents.ANVIL_LAND, 2.0F, 0.6F);
     }

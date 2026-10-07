@@ -12,8 +12,10 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class ForgottenConstructModel extends GeoModel<ForgottenConstructEntity> {
     public static final String MOD_ID = "sculkeritegreatsword";
-    /** Nombre del hueso de la cabeza en el .geo.json (cámbialo si es distinto). */
-    private static final String HEAD_BONE = "head";
+    /** Hueso de la cabeza: solo sube y baja. */
+    private static final String HEAD_BONE = "Cabeza";
+    /** Hueso que gira el cuerpo entero hacia el objetivo. */
+    private static final String TURRET_BONE = "CuerpoRotara";
 
     @Override public ResourceLocation getModelResource(ForgottenConstructEntity e) {
         return new ResourceLocation(MOD_ID, "geo/forgotten_construct.geo.json");
@@ -30,10 +32,13 @@ public class ForgottenConstructModel extends GeoModel<ForgottenConstructEntity> 
         super.setCustomAnimations(entity, instanceId, state);
         BossState s = entity.getBossState();
         if (s == BossState.SLEEP || s == BossState.DAZED) return;
-        CoreGeoBone head = getAnimationProcessor().getBone(HEAD_BONE);
-        if (head == null) return;
+
         EntityModelData data = state.getData(DataTickets.ENTITY_MODEL_DATA);
-        head.setRotX(data.headPitch() * Mth.DEG_TO_RAD);
-        head.setRotY(data.netHeadYaw() * Mth.DEG_TO_RAD);
+
+        CoreGeoBone head = getAnimationProcessor().getBone(HEAD_BONE);
+        if (head != null) head.setRotX(data.headPitch() * Mth.DEG_TO_RAD);
+
+        CoreGeoBone turret = getAnimationProcessor().getBone(TURRET_BONE);
+        if (turret != null) turret.setRotY(data.netHeadYaw() * Mth.DEG_TO_RAD);
     }
 }
