@@ -31,24 +31,26 @@ public class ModCreativeModeTabs {
                         output.accept(Moditems.SCULKERITEGREATSWORD.get());
                         output.accept(Moditems.SCULKERITE_SCYTHE.get());
                         output.accept(Moditems.GOODBYE_TO_A_WORLD_MUSIC_DISC.get());
+                        output.accept(Moditems.TERSECTACT.get());
+                        output.accept(Moditems.BABY_KRILLATHAN_BUCKET.get());
+                        output.accept(Moditems.KELP_ON_A_STICK.get());
+                        output.accept(Moditems.MUDDER_BUCKET.get());
+                        output.accept(Moditems.DRILLER_CLAW.get());
                         output.accept(Moditems.PAXEL.get());
                         output.accept(Moditems.DRAGON_PAXEL.get());
-                        output.accept(Moditems.TERSECTACT.get());
+                        output.accept(Moditems.CHROMATIC_SEED.get());
+                        output.accept(Moditems.SPORES_SHROOMERS.get());
+                        output.accept(Moditems.PEEKER_FETUS.get());
                         output.accept(Moditems.MANDRAKE_ROOT.get());
                         output.accept(Moditems.GOLDEN_MANDRAKE.get());
+                        output.accept(Moditems.SCULK_BRAIN.get());
                         // Bloques
                         output.accept(Moditems.GEAR_COPPER_BLOCK.get());
                         output.accept(Moditems.KRILLATHAN_EGG.get());
+                        output.accept(Moditems.MUDDER_EGG.get());
                         output.accept(Moditems.BULLSQUAMA_EGG.get());
                         output.accept(Moditems.DRILLER_EGG.get());
-                        output.accept(Moditems.MUDDER_EGG.get());
                         output.accept(Moditems.WOOLODON_EGG.get());
-                        output.accept(Moditems.BABY_KRILLATHAN_BUCKET.get());
-                        output.accept(Moditems.MUDDER_BUCKET.get());
-                        output.accept(Moditems.KELP_ON_A_STICK.get());
-                        output.accept(Moditems.DRILLER_CLAW.get());
-                        output.accept(Moditems.PEEKER_FETUS.get());
-                        output.accept(Moditems.SPORES_SHROOMERS.get());
                         // Spawn Eggs
                         output.accept(Moditems.MUSHROOM_SERVANT_SPAWN_EGG.get());
                         output.accept(Moditems.SCULK_GOLEM_SPAWN_EGG.get());

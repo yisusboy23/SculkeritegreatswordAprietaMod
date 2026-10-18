@@ -82,5 +82,7 @@
   "entity.sculkeritegreatsword.forgotten_toy": "Juguete Olvidado",
   "item.sculkeritegreatsword.forgotten_toy_spawn_egg": "Generador de Juguete Olvidado",
   "entity.sculkeritegreatsword.resonarch": "Resonarca",
-  "item.sculkeritegreatsword.resonarch_spawn_egg": "Generador de Resonarca"
+  "item.sculkeritegreatsword.resonarch_spawn_egg": "Generador de Resonarca",
+  "item.sculkeritegreatsword.chromatic_seed": "Semilla Cromática",
+  "item.sculkeritegreatsword.sculk_brain": "Nudo Sináptico de Sculk"
 }

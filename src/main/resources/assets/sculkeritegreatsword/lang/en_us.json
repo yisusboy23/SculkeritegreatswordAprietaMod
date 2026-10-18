@@ -84,5 +84,7 @@
   "entity.sculkeritegreatsword.forgotten_drone": "Forgotten Drone",
   "entity.sculkeritegreatsword.forgotten_toy": "Forgotten Toy",
   "entity.sculkeritegreatsword.resonarch": "Resonarch",
-  "entity.sculkeritegreatsword.woolodon": "Woolodon"
+  "entity.sculkeritegreatsword.woolodon": "Woolodon",
+  "item.sculkeritegreatsword.chromatic_seed": "Chromatic Seed",
+  "item.sculkeritegreatsword.sculk_brain": "Sculk Synaptic Knot"
 }

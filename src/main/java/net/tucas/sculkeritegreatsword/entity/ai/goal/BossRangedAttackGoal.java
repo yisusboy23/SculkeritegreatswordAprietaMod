@@ -112,7 +112,6 @@ public class BossRangedAttackGoal extends AbstractBossGoal {
             sl.sendParticles(ParticleTypes.LAVA, origin.x, origin.y, origin.z, 12, 0.3, 0.3, 0.3, 0.1);
             sl.sendParticles(ParticleTypes.LARGE_SMOKE, origin.x, origin.y, origin.z, 8, 0.3, 0.3, 0.3, 0.05);
         }
-        boss.playSound(SoundEvents.GHAST_SHOOT, 3.0F, 0.6F);
     }
 
     // ---- Beam: sale del locator "nucleo"

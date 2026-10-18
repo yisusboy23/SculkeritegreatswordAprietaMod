@@ -266,15 +266,34 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
     }
 
     // ------------------------------------------------------------------ ESTATUA INMÓVIL
-    @Override public boolean isPushable() { return false; }
-    @Override public void push(Entity entity) { }
-    @Override public void push(double x, double y, double z) { }
-    @Override protected void doPush(Entity entity) { }
-    @Override public boolean isPushedByFluid() { return false; }
-    @Override public void knockback(double strength, double x, double z) { }
-    @Override public boolean fireImmune() { return true; }
-    @Override public boolean causeFallDamage(float dist, float mult, DamageSource src) { return false; }
-    @Override public boolean removeWhenFarAway(double d) { return false; }
+    @Override
+    public boolean isPushable() {
+        return true;
+    }
+
+    @Override
+    public boolean isPushedByFluid() {
+        return false;
+    }
+
+    @Override
+    public void knockback(double strength, double x, double z) {
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return true;
+    }
+
+    @Override
+    public boolean causeFallDamage(float dist, float mult, DamageSource src) {
+        return false;
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double d) {
+        return false;
+    }
 
     /** Solo permite el movimiento vertical (gravedad); jamás se desplaza en X/Z. */
     @Override
