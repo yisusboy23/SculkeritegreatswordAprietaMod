@@ -32,6 +32,11 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.BossEvent;
+import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -47,6 +52,7 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
     public static final int FAR_TICKS_FOR_PULL = 60;          // 3 s
     public static final float PHASE2_HEALTH_RATIO = 0.30F;
     private static final double PHASE2_SPEED = 1.35D;
+    private static final double HOMING_STRENGTH = 0.35D;
 
     // Locators del .geo.json (unidades de modelo)
     public static final Vec3 NUCLEO_OFFSET = new Vec3(0.5D, 14.75D, -6.5D);
@@ -69,6 +75,12 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
+    private final ServerBossEvent bossEvent = new ServerBossEvent(
+            Component.literal("Forgotten Construct"),
+            BossEvent.BossBarColor.PURPLE,
+            BossEvent.BossBarOverlay.PROGRESS
+    );
+
     private int meleeCooldown, rangedCooldown, pullCooldown, farTicks;
 
     public ForgottenConstructEntity(EntityType<? extends Monster> type, Level level) {
@@ -77,11 +89,29 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
         this.setPersistenceRequired();
     }
 
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void setCustomName(@Nullable Component name) {
+        super.setCustomName(name);
+        this.bossEvent.setName(this.getDisplayName());
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 300.0D)
                 .add(Attributes.ATTACK_DAMAGE, 14.0D)
-                .add(Attributes.ARMOR, 8.0D)
+                .add(Attributes.ARMOR, 15.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
@@ -127,6 +157,10 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
         setAwake(tag.getBoolean("Awake"));
         setPhase2(tag.getBoolean("Phase2"));
         setBossState(isAwake() ? BossState.IDLE : BossState.SLEEP);
+
+        if (this.hasCustomName()) {
+            this.bossEvent.setName(this.getDisplayName());
+        }
     }
 
     public BossState getBossState() { return BossState.byId(this.entityData.get(DATA_STATE)); }
@@ -198,12 +232,21 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
         if (isAwake() && t != null && distanceToSqr(t) > RANGED_MAX_RANGE * RANGED_MAX_RANGE) farTicks++;
         else farTicks = 0;
 
-        // Entrada a Fase 2 (solo entre ataques): rugido + ataques más rápidos
         if (isAwake() && !isPhase2() && getBossState() == BossState.IDLE
                 && getHealth() < getMaxHealth() * PHASE2_HEALTH_RATIO) {
             setPhase2(true);
             setBossState(BossState.WAKING_UP);
         }
+
+        guideReturnedFireballs();
+
+// Actualizar la barra de vida
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        this.bossEvent.setVisible(isAwake());
+        this.bossEvent.setColor(isPhase2()
+                ? BossEvent.BossBarColor.WHITE
+                : BossEvent.BossBarColor.BLUE);
+        this.bossEvent.setDarkenScreen(false);
     }
 
     @Override
@@ -241,6 +284,30 @@ public class ForgottenConstructEntity extends Monster implements GeoEntity {
                 && f.getPersistentData().getBoolean(FIREBALL_TAG)
                 && f.getOwner() instanceof LivingEntity owner
                 && owner != this;
+    }
+
+    /** Ayuda de puntería: las bolas devueltas se curvan hacia el jefe. */
+    private void guideReturnedFireballs() {
+        Vec3 target = this.getBoundingBox().getCenter();
+
+        List<Fireball> balls = this.level().getEntitiesOfClass(
+                Fireball.class,
+                this.getBoundingBox().inflate(40.0D),
+                this::isReturnedFireball
+        );
+
+        for (Fireball f : balls) {
+            Vec3 dir = target.subtract(f.position()).normalize();
+            double speed = Math.max(f.getDeltaMovement().length(), 0.8D);
+
+            Vec3 newMotion = f.getDeltaMovement().lerp(
+                    dir.scale(speed),
+                    HOMING_STRENGTH
+            );
+
+            f.setDeltaMovement(newMotion);
+            f.hurtMarked = true;
+        }
     }
 
     public void enterDazed() {

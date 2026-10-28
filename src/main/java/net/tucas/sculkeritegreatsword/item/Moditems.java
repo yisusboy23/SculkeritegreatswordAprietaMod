@@ -218,6 +218,15 @@ public class Moditems {
                             new Item.Properties().rarity(Rarity.UNCOMMON)
                     ));
 
+
+    public static final RegistryObject<Item> FORGOTTEN_CONSTRUCT_SPAWN_EGG =
+            ITEMS.register("forgotten_construct_spawn_egg",
+                    () -> new CustomSpawnEggItem(
+                            ModEntities.FORGOTTEN_CONSTRUCT,
+                            new Item.Properties().rarity(Rarity.EPIC)
+                    ));
+
+
     public static final RegistryObject<Item> MUDDER_BUCKET =
             ITEMS.register("mudder_bucket",
                     () -> new MudderBucketItem(
