@@ -170,7 +170,7 @@ public class ModEntities {
             "peeker",
             () -> EntityType.Builder
                     .<PeekerEntity>of(PeekerEntity::new, MobCategory.CREATURE) // CREATURE porque es domesticable/montable, no MONSTER
-                    .sized(1.5f, 4.5f)
+                    .sized(1.5f, 4.7f)
                     .build("peeker")
     );
     // ── MANDRAKE ────────────────────────────────────────────────────────────────

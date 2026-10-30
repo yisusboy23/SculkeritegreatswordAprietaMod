@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:sniffer_egg",
+
+    "sculkeritegreatsword:mudder_egg",
+    "sculkeritegreatsword:krillathan_eggs",
+    "sculkeritegreatsword:brachiosaurus_egg",
+    "sculkeritegreatsword:driller_egg",
+    "sculkeritegreatsword:bullsquama_egg",
+
+    { "id": "species:cruncher_egg", "required": false },
+    { "id": "species:petrified_egg", "required": false },
+    { "id": "species:springling_egg", "required": false },
+    { "id": "wan_ancient_beasts:eater_egg", "required": false },
+    { "id": "wan_ancient_beasts:crusher_egg", "required": false },
+    { "id": "wan_ancient_beasts:glider_egg", "required": false },
+    { "id": "wan_ancient_beasts:surfer_egg", "required": false },
+    { "id": "wan_ancient_beasts:snatcher_egg", "required": false },
+    { "id": "wan_ancient_beasts:raider_egg", "required": false },
+    { "id": "wan_ancient_beasts:charger_egg", "required": false }
+  ]
+}

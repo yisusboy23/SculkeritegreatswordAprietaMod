@@ -14,7 +14,6 @@ import net.tucas.sculkeritegreatsword.block.BullsquamaEggBlock;
 import net.tucas.sculkeritegreatsword.block.TallWoolodonEggBlock;
 import net.tucas.sculkeritegreatsword.block.MudderEggBlock;
 import net.tucas.sculkeritegreatsword.block.MandrakeRootBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.tucas.sculkeritegreatsword.block.PeekerFetusBlock;
 
 

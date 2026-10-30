@@ -14,8 +14,7 @@ public class PeekerModel extends GeoModel<PeekerEntity> {
 
     @Override
     public ResourceLocation getTextureResource(PeekerEntity animatable) {
-        // getTexture() ya refleja el estado (salvaje / ensillado / explotando) solo,
-        // porque PeekerEntity la actualiza en setSaddled()/die(). No hace falta lógica aquí.
+        // getTexture() calcula la textura según silla y muerte
         return new ResourceLocation(Sculkeritegreatsword.MOD_ID, "textures/entity/" + animatable.getTexture() + ".png");
     }
 

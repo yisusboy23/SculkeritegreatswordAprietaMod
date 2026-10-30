@@ -92,6 +92,18 @@ public class ModCreativeModeTabs {
                         enchantments2.add(enchantment2);
                         kineticEnergyBook.getOrCreateTag().put("StoredEnchantments", enchantments2);
                         output.accept(kineticEnergyBook);
+
+                        // Libros 3 - Finesse (niveles I, II y III)
+                        for (int lvl = 1; lvl <= 3; lvl++) {
+                            ItemStack finesseBook = new ItemStack(Items.ENCHANTED_BOOK);
+                            ListTag enchantments3 = new ListTag();
+                            CompoundTag enchantment3 = new CompoundTag();
+                            enchantment3.putString("id", BuiltInRegistries.ENCHANTMENT.getKey(ModEnchantments.FINESSE.get()).toString());
+                            enchantment3.putShort("lvl", (short) lvl);
+                            enchantments3.add(enchantment3);
+                            finesseBook.getOrCreateTag().put("StoredEnchantments", enchantments3);
+                            output.accept(finesseBook);
+                        }
                     })
                     .build());
 

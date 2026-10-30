@@ -1,5 +1,6 @@
 package net.tucas.sculkeritegreatsword.entity.custom;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -20,21 +21,26 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.tucas.sculkeritegreatsword.Sculkeritegreatsword;
+import net.tucas.sculkeritegreatsword.block.PeekerFetusBlock;
 import net.tucas.sculkeritegreatsword.entity.ai.goal.PeekerAvoidPlayerGoal;
+import net.tucas.sculkeritegreatsword.entity.ai.goal.PeekerPanicGoal;
 import net.tucas.sculkeritegreatsword.entity.ai.goal.PeekerConstants;
-import net.tucas.sculkeritegreatsword.init.ModEntities;         // <-- ajusta al nombre real
+import net.tucas.sculkeritegreatsword.init.ModEntities;
+import net.tucas.sculkeritegreatsword.item.Moditems;
 import software.bernie.geckolib.animatable.GeoEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.BonemealableBlock;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -42,28 +48,17 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.phys.AABB;
-import net.tucas.sculkeritegreatsword.item.Moditems;
-import java.util.List;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
- * Peeker: nace bebé, crece a adulto solo (usa el sistema de edad de Animal, no hace
- * falta reinventarlo), huye del jugador mientras es salvaje, se puede domesticar y,
- * una vez domesticado, ensillar y montar.
- *
- * Diseño: UNA sola clase de entidad (no una "PeekerEntity" + "PeekerSaddledEntity"
- * duplicada). El estado de silla es solo un booleano sincronizado, igual que hace
- * el juego base con el cerdo o el caballo. Menos código, menos duplicación, y el
- * modelo/renderer pueden decidir la textura leyendo isSaddled()/isTame() en vez de
- * necesitar dos modelos distintos para lo mismo.
+ * Peeker: nace bebé, crece solo, huye del jugador mientras es salvaje,
+ * se domestica, se ensilla y se monta. Al morir explota.
+ * La textura se calcula a partir del estado (silla / muerte), no se guarda.
  */
 public class PeekerEntity extends TamableAnimal implements GeoEntity {
 
-    private static final EntityDataAccessor<String> TEXTURE =
-            SynchedEntityData.defineId(PeekerEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Boolean> SADDLED =
             SynchedEntityData.defineId(PeekerEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -86,16 +81,7 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TEXTURE, PeekerConstants.TEXTURE_WILD);
         this.entityData.define(SADDLED, false);
-    }
-
-    public String getTexture() {
-        return this.entityData.get(TEXTURE);
-    }
-
-    public void setTexture(String texture) {
-        this.entityData.set(TEXTURE, texture);
     }
 
     public boolean isSaddled() {
@@ -104,26 +90,26 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
 
     public void setSaddled(boolean saddled) {
         this.entityData.set(SADDLED, saddled);
-        refreshTextureForCurrentState();
     }
 
-    /** Mantiene la textura sincronizada con tame/saddle sin que nadie tenga que acordarse de hacerlo a mano. */
-    private void refreshTextureForCurrentState() {
-        setTexture(isSaddled() ? PeekerConstants.TEXTURE_SADDLED : PeekerConstants.TEXTURE_WILD);
+    /** Textura derivada del estado. La usa PeekerModel. */
+    public String getTexture() {
+        if (this.deathTime >= 2) {
+            return isSaddled() ? PeekerConstants.TEXTURE_EXPLODE_SADDLED : PeekerConstants.TEXTURE_EXPLODE_WILD;
+        }
+        return isSaddled() ? PeekerConstants.TEXTURE_SADDLED : PeekerConstants.TEXTURE_WILD;
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putString("Texture", getTexture());
         compound.putBoolean("Saddled", isSaddled());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("Texture")) setTexture(compound.getString("Texture"));
-        if (compound.contains("Saddled")) this.entityData.set(SADDLED, compound.getBoolean("Saddled"));
+        if (compound.contains("Saddled")) setSaddled(compound.getBoolean("Saddled"));
     }
 
     @Override
@@ -138,13 +124,12 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new PeekerAvoidPlayerGoal(this,
-                PeekerConstants.AVOID_PLAYER_DISTANCE, PeekerConstants.AVOID_PLAYER_SPEED_WALK, PeekerConstants.AVOID_PLAYER_SPEED_SPRINT));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new PeekerAvoidPlayerGoal(this, PeekerConstants.AVOID_PLAYER_DISTANCE, PeekerConstants.AVOID_PLAYER_SPEED_WALK, PeekerConstants.AVOID_PLAYER_SPEED_SPRINT));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, PeekerConstants.LOOK_AT_PLAYER_RANGE));
-        this.goalSelector.addGoal(3, new PanicGoal(this, PeekerConstants.PANIC_SPEED));
+        this.goalSelector.addGoal(3, new PeekerPanicGoal(this, PeekerConstants.PANIC_SPEED));
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, PeekerConstants.STROLL_SPEED));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new FloatGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -175,12 +160,11 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
     }
 
     private SoundEvent modSound(String name) {
-        // Sustituye por tu propio RegistryObject<SoundEvent> cuando lo tengas, ej: ModSounds.PEEKER_IDLE.get()
         return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(Sculkeritegreatsword.MOD_ID, name));
     }
 
     // ------------------------------------------------------------------
-    // Domesticación + silla + montar (todo pasa por mobInteract)
+    // Domesticación, silla y montura
     // ------------------------------------------------------------------
 
     @Override
@@ -190,26 +174,19 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
         if (!this.isTame()) {
             return tryTame(player, stack);
         }
-
-        if (!this.isSaddled() && isSaddleItem(stack)) {
+        if (!this.isSaddled() && stack.is(Items.SADDLE)) {
             return equipSaddle(player, stack);
         }
-
         if (this.isSaddled() && player.isShiftKeyDown() && stack.isEmpty()) {
-            return unequipSaddle(player);
+            return unequipSaddle();
         }
-
         if (this.isSaddled() && !this.isVehicle() && hand == InteractionHand.MAIN_HAND && stack.isEmpty()) {
             return mount(player);
         }
-
         return super.mobInteract(player, hand);
     }
 
-    /**
-     * Punto de extensión: define aquí con qué ítem se domestica al Peeker
-     * (por ahora placeholder, me dijiste que lo confirmas después).
-     */
+    /** Ítem para domesticar (placeholder hasta que lo confirmes). */
     protected boolean isTameItem(ItemStack stack) {
         return stack.is(Items.BONE_MEAL);
     }
@@ -228,15 +205,11 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
             this.tame(player);
             this.navigation.stop();
             this.setTarget(null);
-            this.level().broadcastEntityEvent(this, (byte) 7); // partículas de corazones vanilla
+            this.level().broadcastEntityEvent(this, (byte) 7); // corazones
         } else {
-            this.level().broadcastEntityEvent(this, (byte) 6); // partículas de humo vanilla (falló)
+            this.level().broadcastEntityEvent(this, (byte) 6); // humo
         }
         return InteractionResult.SUCCESS;
-    }
-
-    private boolean isSaddleItem(ItemStack stack) {
-        return stack.is(Items.SADDLE);
     }
 
     private InteractionResult equipSaddle(Player player, ItemStack stack) {
@@ -251,7 +224,7 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
         return InteractionResult.SUCCESS;
     }
 
-    private InteractionResult unequipSaddle(Player player) {
+    private InteractionResult unequipSaddle() {
         if (this.level().isClientSide) {
             return InteractionResult.CONSUME;
         }
@@ -271,7 +244,7 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
     }
 
     // ------------------------------------------------------------------
-    // Movimiento cuando lleva jinete
+    // Movimiento con jinete
     // ------------------------------------------------------------------
 
     @Override
@@ -285,8 +258,9 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
     }
 
     @Override
-    public void travel(net.minecraft.world.phys.Vec3 travelVector) {
+    public void travel(Vec3 travelVector) {
         LivingEntity rider = this.getControllingPassenger();
+
         if (this.isAlive() && this.isVehicle() && this.isSaddled() && rider != null) {
             this.setYRot(rider.getYRot());
             this.yRotO = this.getYRot();
@@ -295,46 +269,25 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
             this.yBodyRot = this.getYRot();
             this.yHeadRot = this.yBodyRot;
 
-            float forward = rider.zza;
             this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
-            super.travel(new net.minecraft.world.phys.Vec3(0.0D, 0.0D, forward));
+            super.travel(new Vec3(0.0D, 0.0D, rider.zza));
         } else {
-            this.setSpeed(0.0F);
             super.travel(travelVector);
         }
     }
 
     /**
-     * FIX: al bajarse el jinete, la velocidad horizontal residual (deltaMovement)
-     * seguía decayendo de a poco durante varios ticks, lo que hacía que GeckoLib
-     * detectara "isMoving" por encima del umbral y se quedara pegado en la
-     * animación de walk en vez de pasar a idle al toque. Cortamos X/Z a 0 apenas
-     * se desmonta, dejando Y intacto para no alterar la caída/gravedad.
+     * Al desmontar: los goals dejan un camino pendiente que travel() ignoraba con
+     * jinete y que se ejecutaría al bajarse. Cortamos navegación, velocidad
+     * horizontal y animación de caminar para que quede quieto al instante.
      */
     @Override
     protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
-        // FIX real: no era solo velocidad residual. El goalSelector (RandomStrollGoal,
-        // PanicGoal, etc.) sigue vivo mientras el jugador te monta, y su navegación
-        // puede quedar con un camino "cargado" que travel() ignora mientras hay
-        // jinete. Al desmontar, travel() vuelve a ejecutar ese camino pendiente y
-        // el Peeker sale caminando de verdad varios segundos, no es un bug visual
-        // de GeckoLib. Cortamos la navegación en ambos extremos (montar y
-        // desmontar) para que no quede nada pendiente.
         this.navigation.stop();
         this.setDeltaMovement(this.getDeltaMovement().multiply(0.0D, 1.0D, 0.0D));
         this.setSpeed(0.0F);
-        // FIX real, sacado de comparar con la versión vieja (MCreator) del mod:
-        // esa versión alimentaba a mano el walkAnimation de Vanilla SOLO mientras
-        // estaba montada, y lo soltaba al desmontar dejando que Mob.aiStep() lo
-        // recalculara solo. walkAnimation.stop() es el método de Vanilla hecho
-        // justo para cortar la animación de caminar al instante (lo usan
-        // minecarts/botes al desenganchar el jinete).
-        // walkAnimation.stop() no existe en esta versión de Mappings (1.20.1).
-        // update(objetivo, factorDeSuavizado) con factor=1.0F aplica el cambio
-        // al 100% en un solo tick en vez de ir decayendo de a poco: le decimos
-        // "el movimiento objetivo es 0, y aplicalo YA, sin lerp".
-        this.walkAnimation.update(0.0F, 1.0F);
+        this.walkAnimation.update(0.0F, 1.0F); // factor 1.0 = aplica 0 sin suavizado
     }
 
     @Nullable
@@ -343,21 +296,9 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
         Entity passenger = this.getFirstPassenger();
         return this.isSaddled() && passenger instanceof LivingEntity livingEntity ? livingEntity : null;
     }
-
-    @Override
-    public boolean isControlledByLocalInstance() {
-        return this.isVehicle() && super.isControlledByLocalInstance();
-    }
-
     // ------------------------------------------------------------------
-    // Muerte / partículas de baja vida
+    // Baja vida, muerte y explosión
     // ------------------------------------------------------------------
-
-    @Override
-    public void die(DamageSource source) {
-        super.die(source);
-        // El resto de la secuencia (daño, partículas, drops, textura) ocurre en tickDeath()
-    }
 
     @Override
     public void aiStep() {
@@ -379,25 +320,18 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
     protected void tickDeath() {
         this.deathTime++;
 
-        // Tick 2: la textura cambia a "explotando" casi de inmediato, como en el original
-        if (this.deathTime == 2) {
-            setTexture(this.isSaddled()
-                    ? PeekerConstants.TEXTURE_EXPLODE_SADDLED
-                    : PeekerConstants.TEXTURE_EXPLODE_WILD);
-        }
-
-        // Tick 20: posibilidad de soltar el fetus (25%, igual que el original)
+        // Tick 20: 25% de soltar el fetus
         if (this.deathTime == 20 && this.level() instanceof ServerLevel serverLevel) {
             if (this.random.nextInt(4) == 0) {
-                ItemEntity fetusEntity = new ItemEntity(serverLevel,
+                ItemEntity fetus = new ItemEntity(serverLevel,
                         this.getX(), this.getY(), this.getZ(),
                         new ItemStack(Moditems.PEEKER_FETUS.get()));
-                fetusEntity.setDefaultPickUpDelay();
-                serverLevel.addFreshEntity(fetusEntity);
+                fetus.setDefaultPickUpDelay();
+                serverLevel.addFreshEntity(fetus);
             }
         }
 
-        // Tick 25: explosión completa (daño de área + partículas + drops)
+        // Tick 25: explosión
         if (this.deathTime == PeekerConstants.DEATH_ANIMATION_TICKS) {
             if (this.level() instanceof ServerLevel serverLevel) {
                 explodeEffects(serverLevel);
@@ -425,7 +359,7 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
                     + random.nextFloat() * (PeekerConstants.EXPLOSION_DAMAGE_MAX - PeekerConstants.EXPLOSION_DAMAGE_MIN);
             entity.hurt(this.damageSources().explosion(null, null), damage);
         }
-        growNearbyGrass(level, random); // ahora se llama UNA sola vez, no por cada entidad dañada
+        growNearbyGrass(level, random);
 
         if (this.isSaddled()) {
             this.spawnAtLocation(Items.SADDLE);
@@ -434,15 +368,14 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
 
     private void growNearbyGrass(ServerLevel level, RandomSource random) {
         BlockPos center = this.blockPosition();
-        int attempts = 10 + random.nextInt(6); // 10-15 intentos, como el original
+        int attempts = 10 + random.nextInt(6);
 
         for (int i = 0; i < attempts; i++) {
-            BlockPos pos = center.offset(
-                    random.nextInt(3) - 1,
-                    -1,
-                    random.nextInt(3) - 1
-            );
+            BlockPos pos = center.offset(random.nextInt(3) - 1, -1, random.nextInt(3) - 1);
             BlockState state = level.getBlockState(pos);
+
+            // El fetus es BonemealableBlock, pero la explosión no debe hacerlo eclosionar
+            if (state.getBlock() instanceof PeekerFetusBlock) continue;
 
             if (state.getBlock() instanceof BonemealableBlock bonemealable
                     && bonemealable.isValidBonemealTarget(level, pos, state, level.isClientSide())) {
@@ -452,13 +385,13 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
     }
 
     // ------------------------------------------------------------------
-    // Bebé -> adulto (gratis, usando el sistema de Animal) + cría
+    // Bebé -> adulto y cría
     // ------------------------------------------------------------------
 
     @Override
     public EntityDimensions getDimensions(Pose pose) {
         EntityDimensions adult = super.getDimensions(pose).scale(PeekerConstants.BASE_ENTITY_SCALE);
-        return this.isBaby() ? adult.scale(0.5F) : adult;
+        return this.isBaby() ? adult.scale(0.95F) : adult;
     }
 
     @Nullable
@@ -473,7 +406,7 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return false; // define aquí el ítem de cría si lo vas a usar más adelante
+        return false; // pendiente: ítem de cría
     }
 
     // ------------------------------------------------------------------
@@ -482,49 +415,48 @@ public class PeekerEntity extends TamableAnimal implements GeoEntity {
 
     private PlayState movementPredicate(AnimationState<PeekerEntity> event) {
         if (this.isDeadOrDying()) {
-            return event.setAndContinue(RawAnimation.begin().thenPlay(PeekerConstants.ANIM_EXPLODE));
+            return event.setAndContinue(
+                    RawAnimation.begin().thenPlay(PeekerConstants.ANIM_EXPLODE)
+            );
         }
 
-        // FIX real: no medimos "velocidad intentada" (deltaMovement / event.isMoving()),
-        // porque eso puede ser distinto de cero incluso trabado contra una pared o
-        // con el rider empujando "adelante" sin que la posición cambie un milímetro
-        // (de ahí el "hace walk y no avanza nada"). Medimos DESPLAZAMIENTO REAL:
-        // comparamos la posición actual contra la del tick anterior (xo/zo, que
-        // Vanilla ya trackea). Esto es exactamente lo mismo que usa
-        // Entity#calculateEntityAnimation internamente, y es inmune a colisiones,
-        // input del jinete, o rarezas de GeckoLib.
-        double dx = this.getX() - this.xo;
-        double dz = this.getZ() - this.zo;
-        double distMovedSqr = dx * dx + dz * dz;
-        boolean actuallyMoving = distMovedSqr > 0.0009D; // se movió más de ~0.03 bloques este tick
+        Vec3 movement = this.getDeltaMovement();
+        boolean moving = movement.horizontalDistanceSqr() > 1.0E-6D;
 
-        if (actuallyMoving) {
-            return event.setAndContinue(RawAnimation.begin().thenLoop(PeekerConstants.ANIM_WALK));
+        if (moving) {
+            return event.setAndContinue(
+                    RawAnimation.begin().thenLoop(
+                            this.isBaby() ? "walk_baby" : PeekerConstants.ANIM_WALK
+                    )
+            );
         }
 
-        // No usamos thenLoop(IDLE) acá a propósito: GeckoLib tiene un bug conocido
-        // (github.com/bernie-g/geckolib/issues/65) donde la transición DESDE una
-        // animación en movimiento HACIA otra queda pegada varios segundos sin
-        // importar transitionLengthTicks. Devolver PlayState.STOP usa un camino
-        // interno distinto que sí corta al instante, y luego forzamos idle en el
-        // siguiente frame de todas formas.
-        if (event.getController().getAnimationState() == software.bernie.geckolib.core.animation.AnimationController.State.STOPPED) {
-            return event.setAndContinue(RawAnimation.begin().thenLoop(PeekerConstants.ANIM_IDLE));
-        }
-        return PlayState.STOP;
+        return event.setAndContinue(
+                RawAnimation.begin().thenLoop(PeekerConstants.ANIM_IDLE)
+        );
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-        // OJO: este valor puede ser TICKS o SEGUNDOS según tu versión de GeckoLib.
-        // Si "5" te daba ~5 segundos de retraso walk->idle, tu versión lo toma como
-        // segundos. Usá algo bajo (ej. 0 para corte instantáneo, o 0.1-0.2 si querés
-        // un mini-crossfade). Si tu versión SÍ es en ticks, podés subirlo a 2-4.
         data.add(new AnimationController<>(this, "movement", 0, this::movementPredicate));
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return this.isAlive() && !this.isRemoved();
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return true;
+    }
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 }

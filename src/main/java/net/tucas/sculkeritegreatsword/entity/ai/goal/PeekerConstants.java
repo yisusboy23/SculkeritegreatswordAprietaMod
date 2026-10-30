@@ -16,7 +16,7 @@ public final class PeekerConstants {
 
     // Movimiento / atributos
     public static final double MOVEMENT_SPEED = 0.1D;
-    public static final double MAX_HEALTH = 25.0D;
+    public static final double MAX_HEALTH = 8.0D;
     public static final double FOLLOW_RANGE = 16.0D;
     public static final double ATTACK_KNOCKBACK = 0.5D;
     public static final float BASE_ENTITY_SCALE = 1.0F;
@@ -27,7 +27,7 @@ public final class PeekerConstants {
     public static final double AVOID_PLAYER_SPEED_WALK = 1.0D;
     public static final double AVOID_PLAYER_SPEED_SPRINT = 1.0D;
     public static final float LOOK_AT_PLAYER_RANGE = 100.0F;
-    public static final double PANIC_SPEED = 1.2D;
+    public static final double PANIC_SPEED = 1.5D;
     public static final double STROLL_SPEED = 1.0D;
 
     // Muerte / explosión
@@ -64,8 +64,5 @@ public final class PeekerConstants {
 
     // Domesticación (tú me dirás el ítem exacto más adelante; de momento queda
     // como punto de extensión en PeekerEntity#isTameItem)
-    public static final int TAME_CHANCE_ONE_IN = 10; // 1 de cada 3 intentos domestica (igual que el lobo vanilla)
-
-    // Silla
-    public static final int SADDLE_EQUIP_SOUND_PITCH_VARIANCE = 0; // 1.0F fijo, sin variación aleatoria por ahora
+    public static final int TAME_CHANCE_ONE_IN = 10;
 }

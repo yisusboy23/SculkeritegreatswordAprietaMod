@@ -87,5 +87,7 @@
   "entity.sculkeritegreatsword.woolodon": "Woolodon",
   "item.sculkeritegreatsword.chromatic_seed": "Chromatic Seed",
   "item.sculkeritegreatsword.sculk_brain": "Sculk Synaptic Knot",
-  "item.sculkeritegreatsword.forgotten_construct_spawn_egg": "Forgotten Construct Spawn Egg"
+  "item.sculkeritegreatsword.forgotten_construct_spawn_egg": "Forgotten Construct Spawn Egg",
+  "enchantment.sculkeritegreatsword.finesse": "Finesse",
+  "enchantment.sculkeritegreatsword.eggscellent": "Eggscellent"
 }
