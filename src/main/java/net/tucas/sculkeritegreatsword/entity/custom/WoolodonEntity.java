@@ -35,6 +35,7 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import net.tucas.sculkeritegreatsword.item.Moditems;
 
 public class WoolodonEntity extends Animal implements GeoEntity {
     // =========================================================
@@ -270,7 +271,7 @@ public class WoolodonEntity extends Animal implements GeoEntity {
                 WOOL_STATE,
                 currentState | bit
         );
-
+        dropChromaticSeeds();
         return true;
     }
 
@@ -662,5 +663,26 @@ public class WoolodonEntity extends Animal implements GeoEntity {
         return this.isBaby()
                 ? 0.5F
                 : 1.0F;
+    }
+
+
+    /**
+     * Suelta entre 1 y 6 semillas cromáticas (aleatorio).
+     */
+    private void dropChromaticSeeds() {
+
+        if (this.level().isClientSide) {
+            return;
+        }
+
+        // nextInt(6) da 0-5, así que +1 da 1-6
+        int amount = 1 + this.random.nextInt(3);
+
+        this.spawnAtLocation(
+                new ItemStack(
+                        Moditems.CHROMATIC_SEED.get(),
+                        amount
+                )
+        );
     }
 }

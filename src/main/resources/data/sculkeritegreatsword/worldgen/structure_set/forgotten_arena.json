@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "sculkeritegreatsword:forgotten_arena",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 50,
+    "separation": 40,
+    "salt": 123456789
+  }
+}

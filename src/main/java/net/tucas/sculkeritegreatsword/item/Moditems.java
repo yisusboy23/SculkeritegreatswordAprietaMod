@@ -73,8 +73,9 @@ public class Moditems {
             ITEMS.register("brachiosaurus_egg",
                     () -> new BlockItem(ModBlocks.WOOLODON_EGG.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> CHROMATIC_SEED = ITEMS.register("chromatic_seed",
-            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CHROMATIC_SEED =
+            ITEMS.register("chromatic_seed",
+                    () -> new Item(new Item.Properties()));
 
     // MANDRÁGORAS
     public static final RegistryObject<Item> MANDRAKE_ROOT = ITEMS.register("mandrake_root",
