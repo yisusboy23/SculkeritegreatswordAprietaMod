@@ -104,7 +104,20 @@ public class ModCreativeModeTabs {
                             finesseBook.getOrCreateTag().put("StoredEnchantments", enchantments3);
                             output.accept(finesseBook);
                         }
-                    })
+                        // Libro - Eggscellent I
+                            ItemStack eggscellentBook = new ItemStack(Items.ENCHANTED_BOOK);
+                            ListTag enchantments4 = new ListTag();
+                            CompoundTag enchantment4 = new CompoundTag();
+
+                            enchantment4.putString("id",
+                                    BuiltInRegistries.ENCHANTMENT.getKey(ModEnchantments.EGGSCELLENT.get()).toString());
+
+                            enchantment4.putShort("lvl", (short) 1);
+                            enchantments4.add(enchantment4);
+
+                            eggscellentBook.getOrCreateTag().put("StoredEnchantments", enchantments4);
+                            output.accept(eggscellentBook);
+                        })
                     .build());
 
     public static void register(IEventBus bus) {
