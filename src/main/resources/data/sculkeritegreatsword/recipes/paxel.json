@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ccc",
+    " Ac",
+    "A  "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:stick"
+    },
+    "c": {
+      "item": "sculkeritegreatsword:driller_claw"
+    }
+  },
+  "result": {
+    "item": "sculkeritegreatsword:paxel",
+    "count": 1
+  }
+}

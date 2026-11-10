@@ -1,0 +1,30 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A C",
+    "DED",
+    " H "
+  ],
+  "key": {
+    "A": {
+      "item": "deeperdarker:reinforced_echo_shard"
+    },
+    "C": {
+      "item": "deeperdarker:reinforced_echo_shard"
+    },
+    "D": {
+      "item": "skarrier_mobs:deep_alloy_ingot"
+    },
+    "E": {
+      "item": "deeperdarker:heart_of_the_deep"
+    },
+    "H": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "sculkeritegreatsword:sculkeritegreatsword",
+    "count": 1
+  }
+}

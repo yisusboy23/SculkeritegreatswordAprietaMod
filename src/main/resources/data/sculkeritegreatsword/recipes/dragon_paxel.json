@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "minecraft:netherite_upgrade_smithing_template",
+  "base": "sculkeritegreatsword:paxel",
+  "addition": "quark:dragon_scale",
+  "result": {
+    "id": "sculkeritegreatsword:dragon_paxel"
+  }
+}

@@ -5,17 +5,14 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,32 +20,19 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.tucas.sculkeritegreatsword.entity.ai.goal.*;
-import net.tucas.sculkeritegreatsword.entity.ai.goal.SculkGolemWanderGoal;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
+import net.tucas.sculkeritegreatsword.entity.ai.goal.MushroomGolemAuraGoal;
+import net.tucas.sculkeritegreatsword.entity.ai.goal.MushroomGolemFleeAndHealGoal;
+import net.tucas.sculkeritegreatsword.entity.ai.goal.MushroomGolemGasAttackGoal;
+import net.tucas.sculkeritegreatsword.entity.ai.goal.MushroomGolemTauntGoal;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.network.chat.Component;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class MushroomGolemEntity extends TamableAnimal implements GeoEntity {
+public class MushroomGolemEntity extends BaseGolemEntity {
 
-    private static final RawAnimation ANIM_IDLE = RawAnimation.begin().thenLoop("idle");
-    private static final RawAnimation ANIM_WALK = RawAnimation.begin().thenLoop("walk");
-    private static final RawAnimation ANIM_RUN = RawAnimation.begin().thenLoop("run");
-    private static final RawAnimation ANIM_ATTACK = RawAnimation.begin().thenLoop("attack");
+    private static final RawAnimation ANIM_GAS = RawAnimation.begin().thenLoop("attack");
 
     public enum Variant {
         RED,
@@ -67,20 +51,13 @@ public class MushroomGolemEntity extends TamableAnimal implements GeoEntity {
             SynchedEntityData.defineId(MushroomGolemEntity.class, EntityDataSerializers.INT);
 
     private MobEffectInstance storedEffect = null;
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public MushroomGolemEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
-        this.xpReward = 10;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 70.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.25)
-                .add(Attributes.ARMOR, 14.0)
-                .add(Attributes.FOLLOW_RANGE, 48.0)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.9);
+        return createGolemAttributes(70.0, 0.25, 14.0, 0.0, 48.0, 0.9);
     }
 
     @Override
@@ -93,107 +70,91 @@ public class MushroomGolemEntity extends TamableAnimal implements GeoEntity {
         this.entityData.define(VARIANT, Variant.RED.ordinal());
     }
 
+    // ---------- Goals ----------
     @Override
-    protected void registerGoals() {
+    protected void registerCombatGoals() {
         this.goalSelector.addGoal(0, new MushroomGolemFleeAndHealGoal(this));
         this.goalSelector.addGoal(1, new MushroomGolemGasAttackGoal(this));
         this.goalSelector.addGoal(2, new MushroomGolemAuraGoal(this));
         this.goalSelector.addGoal(3, new MushroomGolemTauntGoal(this));
-        this.goalSelector.addGoal(3, new SculkGolemFollowOwnerGoal(this, 0.7, 10.0f, 3.0f, false)); // CAMBIO AQUÍ
-        this.goalSelector.addGoal(4, new SculkGolemWanderGoal(this, 0.6));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
-        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
+    protected boolean targetsHostileMobs() {
+        return false; // su comportamiento es de soporte (aura, gas, taunt)
+    }
 
-        if (this.isTame() && this.isOwnedBy(player)) {
-            // CAMBIO DE MODO (sin shift, mano vacía)
-            if (!player.isShiftKeyDown() && itemStack.isEmpty() && hand == InteractionHand.MAIN_HAND) {
-                int currentMode = this.getPersistentData().getInt("golem_mode");
-                int newMode = (currentMode % 3) + 1;
-                this.getPersistentData().putInt("golem_mode", newMode);
+    // ---------- Domesticar / curar ----------
+    @Override
+    protected boolean isTameItem(ItemStack stack) {
+        return stack.is(Items.RED_MUSHROOM) || stack.is(Items.BROWN_MUSHROOM);
+    }
 
-                if (!this.level().isClientSide) {
-                    String msg = switch(newMode) {
-                        case 1 -> "§aFOLLOW MODE";
-                        case 2 -> "§eSTAY MODE";
-                        case 3 -> "§bWANDER MODE";
-                        default -> "";
-                    };
-                    player.displayClientMessage(Component.literal(msg), true);
-                }
-                return InteractionResult.SUCCESS;
-            }
+    /** Shift + bone meal */
+    @Override
+    protected boolean isHealItem(ItemStack stack, Player player) {
+        return player.isShiftKeyDown() && stack.is(Items.BONE_MEAL);
+    }
 
-            // CURACIÓN CON BONE MEAL
-            if (player.isShiftKeyDown() && itemStack.is(Items.BONE_MEAL)) {
-                if (this.getHealth() < this.getMaxHealth()) {
-                    this.heal(25.0f);
-                    itemStack.shrink(1);
+    @Override
+    protected float getHealAmount() {
+        return 25.0f;
+    }
 
-                    if (this.level() instanceof ServerLevel serverLevel) {
-                        for (int i = 0; i < 7; i++) {
-                            serverLevel.sendParticles(ParticleTypes.HEART,
-                                    this.getX() + (this.random.nextDouble() - 0.5) * 1.5,
-                                    this.getY() + this.random.nextDouble() * 2.0,
-                                    this.getZ() + (this.random.nextDouble() - 0.5) * 1.5,
-                                    1, 0, 0, 0, 0);
-                        }
-                    }
+    @Override
+    protected void onHealed(ServerLevel level) {
+        super.onHealed(level); // corazones
+        level.playSound(null, this.blockPosition(),
+                SoundEvents.BONE_MEAL_USE, this.getSoundSource(), 1.0F, 1.0F);
+    }
 
-                    this.level().playSound(null, this.blockPosition(),
-                            SoundEvents.BONE_MEAL_USE, this.getSoundSource(), 1.0F, 1.0F);
-
-                    return InteractionResult.SUCCESS;
-                }
-                return InteractionResult.PASS;
-            }
-
-            // ALMACENAR/EXTRAER POCIÓN
-            if (player.isShiftKeyDown()) {
-                if (itemStack.getItem() == Items.POTION && getStoredPotion().isEmpty()) {
-                    setStoredPotion(itemStack.copy());
-                    extractPotionEffect(itemStack);
-                    itemStack.shrink(1);
-                    player.addItem(new ItemStack(Items.GLASS_BOTTLE));
-                    return InteractionResult.SUCCESS;
-                }
-                else if (itemStack.is(Items.GLASS_BOTTLE) && !getStoredPotion().isEmpty()) {
-                    player.addItem(getStoredPotion().copy());
-                    setStoredPotion(ItemStack.EMPTY);
-                    storedEffect = null;
-                    itemStack.shrink(1);
-                    return InteractionResult.SUCCESS;
-                }
-            }
+    // ---------- Almacenar / extraer poción (shift) ----------
+    @Nullable
+    @Override
+    protected InteractionResult onOwnerInteract(Player player, InteractionHand hand, ItemStack stack) {
+        if (!player.isShiftKeyDown()) {
+            return null;
         }
-        // DOMESTICAR
-        else if (itemStack.is(Items.RED_MUSHROOM) || itemStack.is(Items.BROWN_MUSHROOM)) {
-            if (!this.level().isClientSide) {
-                if (this.random.nextInt(3) == 0) {
-                    this.tame(player);
-                    this.level().broadcastEntityEvent(this, (byte) 7);
-                } else {
-                    this.level().broadcastEntityEvent(this, (byte) 6);
+        boolean clientSide = this.level().isClientSide;
+
+        if (stack.is(Items.POTION) && this.getStoredPotion().isEmpty()) {
+            if (!clientSide) {
+                ItemStack stored = stack.copy();
+                stored.setCount(1);
+                this.setStoredPotion(stored);
+                this.extractPotionEffect(stored);
+                if (!player.getAbilities().instabuild) {
+                    stack.shrink(1);
                 }
+                this.giveToPlayer(player, new ItemStack(Items.GLASS_BOTTLE));
             }
-            itemStack.shrink(1);
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(clientSide);
         }
 
-        return super.mobInteract(player, hand);
+        if (stack.is(Items.GLASS_BOTTLE) && !this.getStoredPotion().isEmpty()) {
+            if (!clientSide) {
+                this.giveToPlayer(player, this.getStoredPotion().copy());
+                this.setStoredPotion(ItemStack.EMPTY);
+                this.storedEffect = null;
+                if (!player.getAbilities().instabuild) {
+                    stack.shrink(1);
+                }
+            }
+            return InteractionResult.sidedSuccess(clientSide);
+        }
+        return null;
+    }
+
+    private void giveToPlayer(Player player, ItemStack stack) {
+        if (!player.addItem(stack)) {
+            player.drop(stack, false); // inventario lleno: no se pierde el item
+        }
     }
 
     private void extractPotionEffect(ItemStack potionStack) {
         List<MobEffectInstance> effects = PotionUtils.getMobEffects(potionStack);
         if (!effects.isEmpty()) {
-            storedEffect = effects.get(0);
+            this.storedEffect = effects.get(0);
         }
     }
 
@@ -205,8 +166,10 @@ public class MushroomGolemEntity extends TamableAnimal implements GeoEntity {
                 .count();
     }
 
+    // ---------- Getters / setters ----------
     public Variant getVariant() {
-        return Variant.values()[this.entityData.get(VARIANT)];
+        int index = Math.max(0, Math.min(this.entityData.get(VARIANT), Variant.values().length - 1));
+        return Variant.values()[index];
     }
 
     public void setVariant(Variant variant) {
@@ -238,11 +201,11 @@ public class MushroomGolemEntity extends TamableAnimal implements GeoEntity {
     }
 
     public boolean hasActivePotion() {
-        return storedEffect != null;
+        return this.storedEffect != null;
     }
 
     public MobEffectInstance getStoredEffect() {
-        return storedEffect;
+        return this.storedEffect;
     }
 
     public ItemStack getStoredPotion() {
@@ -253,12 +216,13 @@ public class MushroomGolemEntity extends TamableAnimal implements GeoEntity {
         this.entityData.set(STORED_POTION, potion);
     }
 
+    // ---------- NBT ----------
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("Variant", this.getVariant().ordinal());
-        if (!getStoredPotion().isEmpty()) {
-            tag.put("StoredPotion", getStoredPotion().save(new CompoundTag()));
+        if (!this.getStoredPotion().isEmpty()) {
+            tag.put("StoredPotion", this.getStoredPotion().save(new CompoundTag()));
         }
     }
 
@@ -266,54 +230,25 @@ public class MushroomGolemEntity extends TamableAnimal implements GeoEntity {
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         if (tag.contains("Variant")) {
-            this.setVariant(Variant.values()[tag.getInt("Variant")]);
+            int index = Math.max(0, Math.min(tag.getInt("Variant"), Variant.values().length - 1));
+            this.setVariant(Variant.values()[index]);
         }
         if (tag.contains("StoredPotion")) {
-            setStoredPotion(ItemStack.of(tag.getCompound("StoredPotion")));
-            extractPotionEffect(getStoredPotion());
+            this.setStoredPotion(ItemStack.of(tag.getCompound("StoredPotion")));
+            this.extractPotionEffect(this.getStoredPotion());
         }
     }
 
+    // ---------- Animación ----------
+    @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.IRON_GOLEM_STEP;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.IRON_GOLEM_HURT;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.IRON_GOLEM_DEATH;
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 5, this::predicate));
-    }
-
-    private PlayState predicate(AnimationState<MushroomGolemEntity> event) {
+    protected RawAnimation getStateAnimation(AnimationState<BaseGolemEntity> state) {
         if (this.isRetreating()) {
-            return event.setAndContinue(ANIM_RUN);
+            return ANIM_RUN;
         }
         if (this.isGasReleasing()) {
-            return event.setAndContinue(ANIM_ATTACK);
+            return ANIM_GAS;
         }
-        if (event.isMoving()) {
-            return event.setAndContinue(ANIM_WALK);
-        }
-        return event.setAndContinue(ANIM_IDLE);
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
+        return null; // idle / walk estándar
     }
 }

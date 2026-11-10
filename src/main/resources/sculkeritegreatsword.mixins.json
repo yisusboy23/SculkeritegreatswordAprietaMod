@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.tucas.sculkeritegreatsword.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "sculkeritegreatsword.refmap.json",
+  "mixins": [
+    "BrushableBlockEntityMixin",
+    "BrushableBlockEntityEggscellentMixin"
+  ],
+  "client": [],
+  "server": []
+}

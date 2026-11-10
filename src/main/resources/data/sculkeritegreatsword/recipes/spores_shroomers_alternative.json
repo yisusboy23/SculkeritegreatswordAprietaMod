@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "savage_and_ravage:creeper_spores"
+    },
+    {
+      "item": "alexsmobs:mungal_spores"
+    }
+  ],
+  "result": {
+    "item": "sculkeritegreatsword:spores_shroomers",
+    "count": 1
+  }
+}

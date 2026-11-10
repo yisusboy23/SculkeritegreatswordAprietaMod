@@ -93,25 +93,43 @@ public class DiamondGolemProyectileAttackGoal extends Goal {
             return;
         }
 
-        // Posición de spawn del proyectil
+        // Constantes del proyectil — AJUSTA si tu entidad usa otras
+        final double PROJECTILE_SPEED = 1.6;
+        final double GRAVITY = 0.05;
+        final double DRAG = 0.99;
+
         double spawnX = this.golem.getX();
         double spawnY = this.golem.getY() + this.golem.getEyeHeight() * 0.8;
         double spawnZ = this.golem.getZ();
 
-        // Calcular dirección base al objetivo
-        double dx = target.getX() - spawnX;
-        double dy = target.getEyeY() - spawnY;
-        double dz = target.getZ() - spawnZ;
-        double distance = Math.sqrt(dx * dx + dz * dz);
+        double targetX = target.getX();
+        double targetY = target.getY() + target.getBbHeight() * 0.5;
+        double targetZ = target.getZ();
 
-        // Normalizar la dirección horizontal
-        double normalizedDx = dx / distance;
-        double normalizedDz = dz / distance;
+        double dx = targetX - spawnX;
+        double dy = targetY - spawnY;
+        double dz = targetZ - spawnZ;
 
-        // Ángulo de dispersión (en radianes) - ajusta este valor para cambiar el abanico
-        double spreadAngle = Math.toRadians(15); // 15 grados a cada lado
+        double horizontalDist = Math.sqrt(dx * dx + dz * dz);
+        if (horizontalDist < 1.0E-4) return;
 
-        // Disparar 3 proyectiles
+        // === COMPENSACIÓN DE GRAVEDAD CUADRÁTICA (la corrección clave) ===
+        double timeTicks = horizontalDist / (PROJECTILE_SPEED * DRAG);
+        double gravityCompensation = 0.5 * GRAVITY * timeTicks * timeTicks;
+
+        double aimX = dx;
+        double aimY = dy + gravityCompensation;
+        double aimZ = dz;
+
+        double length = Math.sqrt(aimX * aimX + aimY * aimY + aimZ * aimZ);
+        if (length < 1.0E-4) return;
+
+        double nx = aimX / length;
+        double ny = aimY / length;
+        double nz = aimZ / length;
+
+        double spreadAngle = Math.toRadians(15);
+
         for (int i = 0; i < 3; i++) {
             DiamondFrostProjectileEntity projectile = new DiamondFrostProjectileEntity(
                     ModEntities.DIAMOND_FROST_PROJECTILE.get(),
@@ -121,33 +139,18 @@ public class DiamondGolemProyectileAttackGoal extends Goal {
 
             projectile.setPos(spawnX, spawnY, spawnZ);
 
-            // Calcular ángulo para este proyectil
-            double angle = 0;
-            if (i == 0) {
-                angle = -spreadAngle; // Izquierda
-            } else if (i == 2) {
-                angle = spreadAngle; // Derecha
-            }
-            // i == 1 se queda con angle = 0 (centro)
+            double angle = (i == 0) ? -spreadAngle : (i == 2) ? spreadAngle : 0;
 
-            // Aplicar rotación al vector de dirección
             double cos = Math.cos(angle);
             double sin = Math.sin(angle);
-            double rotatedDx = normalizedDx * cos - normalizedDz * sin;
-            double rotatedDz = normalizedDx * sin + normalizedDz * cos;
+            double rx = nx * cos - nz * sin;
+            double rz = nx * sin + nz * cos;
+            double ry = ny;
 
-            // Escalar de vuelta a la distancia original
-            rotatedDx *= distance;
-            rotatedDz *= distance;
-
-            // Lanzar el proyectil con la dirección ajustada
-            projectile.shoot(rotatedDx, dy + distance * 0.1, rotatedDz, 1.2F, 0.5F);
-
-            // Añadir el proyectil al mundo
+            projectile.shoot(rx, ry, rz, (float) PROJECTILE_SPEED, 0.0F);
             serverLevel.addFreshEntity(projectile);
         }
 
-        // Sonido de disparo
         this.golem.level().playSound(null,
                 this.golem.getX(), this.golem.getY(), this.golem.getZ(),
                 SoundEvents.SNOW_GOLEM_SHOOT,

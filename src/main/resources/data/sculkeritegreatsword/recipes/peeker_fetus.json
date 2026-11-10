@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DAD",
+    " B ",
+    " C "
+  ],
+  "key": {
+    "A": {
+      "item": "savage_and_ravage:creeper_spores"
+    },
+    "B": {
+      "item": "knightlib:great_essence"
+    },
+    "C": {
+      "tag": "sculkeritegreatsword:peeker_saplings"
+    },
+    "D": {
+      "item": "alexscaves:thornwood_branch"
+    }
+  },
+  "result": {
+    "item": "sculkeritegreatsword:peeker_fetus",
+    "count": 1
+  }
+}

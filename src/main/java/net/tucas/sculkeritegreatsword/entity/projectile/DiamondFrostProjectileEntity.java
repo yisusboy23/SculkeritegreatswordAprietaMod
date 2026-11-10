@@ -30,45 +30,33 @@ public class DiamondFrostProjectileEntity extends ThrowableItemProjectile {
 
     @Override
     protected Item getDefaultItem() {
-        return Items.SNOWBALL;
+        return Items.SNOWBALL; // cambia por tu ítem custom si tienes uno
     }
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        super.onHitEntity(result);
-
         Entity target = result.getEntity();
         Entity shooter = this.getOwner();
 
-        // Obtener el verdadero dueño (el jugador)
+        // Resolver el verdadero dueño (jugador dueño del golem)
         Entity trueOwner = null;
         if (shooter instanceof TamableAnimal tamable && tamable.isTame()) {
             trueOwner = tamable.getOwner();
         }
 
-        // No dañar al golem que disparó
-        if (target == shooter) {
-            return;
-        }
+        // Ignorar al golem que disparó
+        if (target == shooter) return;
 
-        // No dañar al verdadero dueño (jugador)
-        if (trueOwner != null && target == trueOwner) {
-            return;
-        }
+        // Ignorar al dueño del golem
+        if (trueOwner != null && target == trueOwner) return;
 
-        // No dañar a otras mascotas del mismo dueño
-        if (trueOwner != null && target instanceof TamableAnimal tamable) {
-            if (tamable.isTame() && tamable.getOwner() == trueOwner) {
-                return;
-            }
-        }
+        // Ignorar mascotas del mismo dueño
+        if (trueOwner != null && target instanceof TamableAnimal tamable
+                && tamable.isTame() && tamable.getOwner() == trueOwner) return;
 
-        // No dañar a otras entidades que pertenezcan al mismo dueño
-        if (trueOwner != null && target instanceof OwnableEntity ownable) {
-            if (ownable.getOwner() == trueOwner) {
-                return;
-            }
-        }
+        // Ignorar cualquier entidad OwnableEntity del mismo dueño
+        if (trueOwner != null && target instanceof OwnableEntity ownable
+                && ownable.getOwner() == trueOwner) return;
 
         // Aplicar daño y efectos
         if (target instanceof LivingEntity living) {
@@ -79,7 +67,7 @@ public class DiamondFrostProjectileEntity extends ThrowableItemProjectile {
         }
 
         if (!this.level().isClientSide) {
-            this.level().broadcastEntityEvent(this, (byte)3);
+            this.level().broadcastEntityEvent(this, (byte) 3);
             this.discard();
         }
     }
@@ -87,10 +75,21 @@ public class DiamondFrostProjectileEntity extends ThrowableItemProjectile {
     @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
+        // super.onHit ya llamó a onHitEntity u onHitBlock según corresponda.
+        // Aquí solo hacemos efectos visuales/sonoros genéricos.
+        // NOTA: si no quieres doble partícula al impactar entidad,
+        // mueve esto a onHitBlock() en lugar de onHit().
+    }
+
+    @Override
+    protected void onHitBlock(net.minecraft.world.phys.BlockHitResult result) {
+        super.onHitBlock(result);
 
         if (!this.level().isClientSide) {
             ServerLevel level = (ServerLevel) this.level();
-            level.sendParticles(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), 20, 0.3, 0.3, 0.3, 0.1);
+            level.sendParticles(ParticleTypes.SNOWFLAKE,
+                    this.getX(), this.getY(), this.getZ(),
+                    20, 0.3, 0.3, 0.3, 0.1);
             this.playSound(SoundEvents.GLASS_BREAK, 1.0F, 1.0F);
             this.discard();
         }

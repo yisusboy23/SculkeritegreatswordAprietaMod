@@ -18,11 +18,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 
 minecraft {
-    mixin {
-        add sourceSets.main, "mixins.sculkeritegreatsword.refmap.json"
-    }
-
-    // Usamos mappings oficiales para no depender del servidor caído de Parchment
+    // Usamos mappings oficiales para Minecraft 1.20.1
     mappings channel: 'official', version: '1.20.1'
 
     copyIdeResources = true
@@ -56,9 +52,17 @@ minecraft {
 
         data {
             workingDirectory project.file('run-data')
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', mod_id, '--all',
+                    '--output', file('src/generated/resources/'),
+                    '--existing', file('src/main/resources/')
         }
     }
+}
+
+// Configuración de Mixin: fuera de minecraft {}
+mixin {
+    add sourceSets.main, "sculkeritegreatsword.refmap.json"
+    config "sculkeritegreatsword.mixins.json"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
@@ -91,6 +95,8 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.20.1:${geckolib_version}")
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 tasks.named('processResources', ProcessResources).configure {
